@@ -9,16 +9,7 @@ import (
 	"os"
 )
 
-type Dataform struct {
-	Artists   string
-	Locations string
-	Dates     string
-	Relation  string
-}
-
-var Data Dataform
-
-type Datatest struct {
+type Artists []struct {
 	ID           int
 	Image        string
 	Name         string
@@ -30,20 +21,12 @@ type Datatest struct {
 	Relations    string
 }
 
-var datatest Datatest
+var artists Artists
 
 func main() {
-	datatest.ID = 1
-	datatest.Image = "https://i.pinimg.com/originals/0c/0d/0d/0c0d0d8b1b0f1b0f1b1b1b1b1b1b1b1b.jpg"
-	datatest.Name = "The Beatles"
-	datatest.Members = []string{"John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"}
-	datatest.CreationDate = 1960
-	datatest.FirstAlbum = "Please Please Me"
-	datatest.Locations = "Liverpool, England"
-	datatest.ConcertDates = "1962-1966"
 
 	OpenAPI("https://groupietrackers.herokuapp.com/api")
-	fmt.Println(Data.Artists)
+	fmt.Println(artists)
 	//Inisialistion()
 }
 
@@ -73,10 +56,10 @@ func OpenAPI(url string) {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	err = json.Unmarshal(data, &Data)
+	err = json.Unmarshal(data, &artists)
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/index.html")) //We link the template and the html file
-	tmpl.Execute(w, datatest)
+	tmpl.Execute(w, artists)
 }
