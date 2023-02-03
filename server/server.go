@@ -22,5 +22,5 @@ func Inisialistion() {
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/index.html")) //We link the template and the html file
-	tmpl.Execute(w)                                                     //We execute the template and put the Data in
+	tmpl.Execute(w, nil)                                                //We execute the template and put the Data in
 }
