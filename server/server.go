@@ -13,7 +13,8 @@ func main() {
 
 func Inisialistion() {
 	Port := "8080"                                          //We choose port 8080
-	fmt.Println("The serveur start on port " + Port + " 🔥") //We print this when the server is online
+	fmt.Println("The serveur start on port " + Port + " 🔥")
+	fmt.Println("url: http://localhost:8080") //We print this when the server is online
 	styles := http.FileServer(http.Dir("template/css"))
 	http.Handle("/styles/", http.StripPrefix("/styles", styles)) //We link the css with http.Handle
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
