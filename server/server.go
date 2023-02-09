@@ -3,12 +3,20 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"groupietrackers"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
 )
 
+<<<<<<< HEAD
+var Cards []groupietrackers.Artists
+
+func main() {
+	OpenAPI("https://groupietrackers.herokuapp.com/api/artists", Cards)
+	Inisialistion()
+=======
 type Artists []struct {
 	ID           int
 	Image        string
@@ -20,7 +28,11 @@ type Artists []struct {
 	ConcertDates string
 	Relations    string
 }
+type DataArray struct {
+	Array []Datatest
+}
 
+<<<<<<< HEAD
 var artists Artists
 
 func main() {
@@ -28,18 +40,61 @@ func main() {
 	OpenAPI("https://groupietrackers.herokuapp.com/api")
 	fmt.Println(artists)
 	//Inisialistion()
+>>>>>>> main
+=======
+var Dataarray DataArray
+var datatest Datatest
+var test2 Datatest
+var test3 Datatest
+
+func main() {
+	datatest.ID = 1
+	datatest.Image = "https://groupietrackers.herokuapp.com/api/images/queen.jpeg"
+	datatest.Name = "The Beatles"
+	datatest.Members = []string{"John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"}
+	datatest.CreationDate = 1960
+	datatest.FirstAlbum = "Please Please Me"
+	datatest.Locations = "Liverpool, England"
+	datatest.ConcertDates = "1962-1966"
+	test2.ID = 1
+	test2.Image = "https://groupietrackers.herokuapp.com/api/images/queen.jpeg"
+	test2.Name = "oui"
+	test2.Members = []string{"John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"}
+	test2.CreationDate = 1960
+	test2.FirstAlbum = "Please Please Me"
+	test2.Locations = "Liverpool, England"
+	test2.ConcertDates = "1962-1966"
+	Dataarray.Array = append(Dataarray.Array, datatest)
+	Dataarray.Array = append(Dataarray.Array, test2)
+
+	test3.ID = 1
+	test3.Image = "https://groupietrackers.herokuapp.com/api/images/queen.jpeg"
+	test3.Name = "yooo"
+	test3.Members = []string{"John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"}
+	test3.CreationDate = 1960
+	test3.FirstAlbum = "Please Please Me"
+	test3.Locations = "Liverpool, England"
+	test3.ConcertDates = "1962-1966"
+	Dataarray.Array = append(Dataarray.Array, datatest)
+	Dataarray.Array = append(Dataarray.Array, test3)
+
+	//OpenAPI("https://groupietrackers.herokuapp.com/api")
+	fmt.Println(Data.Artists)
+	Inisialistion()
+>>>>>>> origin/etienne
 }
 
 func Inisialistion() {
-	Port := "8080"                                          //We choose port 8080
-	fmt.Println("The serveur start on port " + Port + " 🔥") //We print this when the server is online
+	Port := "8080" //We choose port 8080
+	fmt.Println("The serveur start on port " + Port + " 🔥")
+	fmt.Println("url: http://localhost:8080") //We print this when the server is online
 	styles := http.FileServer(http.Dir("template/css"))
 	http.Handle("/styles/", http.StripPrefix("/styles", styles)) //We link the css with http.Handle
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
 	http.ListenAndServe(":"+Port, nil)                           //We start the server
 }
 
-func OpenAPI(url string) {
+func OpenAPI(url string, Data interface{}) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -56,10 +111,22 @@ func OpenAPI(url string) {
 		fmt.Println(err)
 		os.Exit(0)
 	}
+<<<<<<< HEAD
+	err = json.Unmarshal(data, &Cards)
+=======
 	err = json.Unmarshal(data, &artists)
+>>>>>>> main
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/index.html")) //We link the template and the html file
+<<<<<<< HEAD
+<<<<<<< HEAD
+	tmpl.Execute(w, Cards)
+=======
 	tmpl.Execute(w, artists)
+>>>>>>> main
+=======
+	tmpl.Execute(w, Dataarray)
+>>>>>>> origin/etienne
 }
