@@ -11,6 +11,9 @@ type Artists struct {
 	ConcertDates string
 	Relations    string
 }
+type Cards struct {
+	Array []Artists
+}
 
 /*{"id":1,
 "image":"https://groupietrackers.herokuapp.com/api/images/queen.jpeg",
