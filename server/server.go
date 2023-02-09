@@ -10,11 +10,33 @@ import (
 	"os"
 )
 
+<<<<<<< HEAD
 var Cards []groupietrackers.Artists
 
 func main() {
 	OpenAPI("https://groupietrackers.herokuapp.com/api/artists", Cards)
 	Inisialistion()
+=======
+type Artists []struct {
+	ID           int
+	Image        string
+	Name         string
+	Members      []string
+	CreationDate int
+	FirstAlbum   string
+	Locations    string
+	ConcertDates string
+	Relations    string
+}
+
+var artists Artists
+
+func main() {
+
+	OpenAPI("https://groupietrackers.herokuapp.com/api")
+	fmt.Println(artists)
+	//Inisialistion()
+>>>>>>> main
 }
 
 func Inisialistion() {
@@ -43,10 +65,18 @@ func OpenAPI(url string, Data interface{}) {
 		fmt.Println(err)
 		os.Exit(0)
 	}
+<<<<<<< HEAD
 	err = json.Unmarshal(data, &Cards)
+=======
+	err = json.Unmarshal(data, &artists)
+>>>>>>> main
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/index.html")) //We link the template and the html file
+<<<<<<< HEAD
 	tmpl.Execute(w, Cards)
+=======
+	tmpl.Execute(w, artists)
+>>>>>>> main
 }
