@@ -34,7 +34,7 @@ var datatest Datatest
 
 func main() {
 	datatest.ID = 1
-	datatest.Image = "https://i.pinimg.com/originals/0c/0d/0d/0c0d0d8b1b0f1b0f1b1b1b1b1b1b1b1b.jpg"
+	datatest.Image = "https://groupietrackers.herokuapp.com/api/images/queen.jpeg"
 	datatest.Name = "The Beatles"
 	datatest.Members = []string{"John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"}
 	datatest.CreationDate = 1960
@@ -42,13 +42,13 @@ func main() {
 	datatest.Locations = "Liverpool, England"
 	datatest.ConcertDates = "1962-1966"
 
-	OpenAPI("https://groupietrackers.herokuapp.com/api")
+	//OpenAPI("https://groupietrackers.herokuapp.com/api")
 	fmt.Println(Data.Artists)
-	//Inisialistion()
+	Inisialistion()
 }
 
 func Inisialistion() {
-	Port := "8080"                                          //We choose port 8080
+	Port := "8080" //We choose port 8080
 	fmt.Println("The serveur start on port " + Port + " 🔥")
 	fmt.Println("url: http://localhost:8080") //We print this when the server is online
 	styles := http.FileServer(http.Dir("template/css"))
