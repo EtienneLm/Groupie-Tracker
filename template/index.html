@@ -10,11 +10,15 @@
 <body>
     <h1>Welcome to our Website</h1>
     <p>You will fin here all the informations you need !</p><br>
-
-    <div className="card">
-        <img src =  {{.Image}} ></img>
-        <div className="container">
-            <h4>{{.Name}}</h4>
+    {{range .Array}}
+    <div class="card">
+        <img src = {{.Image}} class="image"></img>
+        <div class="container">
+            <h2>{{.Name}}</h2>
+            <h4>{{.Members}}</h4>
+        </div>
+    </div>
+    {{end}}
    
 </body>
 </html>

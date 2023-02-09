@@ -29,8 +29,13 @@ type Datatest struct {
 	ConcertDates string
 	Relations    string
 }
+type DataArray struct {
+	Array []Datatest
+}
 
+var Dataarray DataArray
 var datatest Datatest
+var test2 Datatest
 
 func main() {
 	datatest.ID = 1
@@ -41,6 +46,16 @@ func main() {
 	datatest.FirstAlbum = "Please Please Me"
 	datatest.Locations = "Liverpool, England"
 	datatest.ConcertDates = "1962-1966"
+	test2.ID = 1
+	test2.Image = "https://groupietrackers.herokuapp.com/api/images/queen.jpeg"
+	test2.Name = "oui"
+	test2.Members = []string{"John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"}
+	test2.CreationDate = 1960
+	test2.FirstAlbum = "Please Please Me"
+	test2.Locations = "Liverpool, England"
+	test2.ConcertDates = "1962-1966"
+	Dataarray.Array = append(Dataarray.Array, datatest)
+	Dataarray.Array = append(Dataarray.Array, test2)
 
 	//OpenAPI("https://groupietrackers.herokuapp.com/api")
 	fmt.Println(Data.Artists)
@@ -79,5 +94,5 @@ func OpenAPI(url string) {
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/index.html")) //We link the template and the html file
-	tmpl.Execute(w, datatest)
+	tmpl.Execute(w, Dataarray)
 }
