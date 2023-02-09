@@ -59,3 +59,12 @@ body {
   .container {
     padding: 0.2px 16px;
   }
+
+  .allTheCards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* align-items: center;
+    align-content: stretch; */
+  }

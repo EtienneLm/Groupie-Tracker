@@ -10,6 +10,7 @@
 <body>
     <h1>Welcome to our Website</h1>
     <p>You will fin here all the informations you need !</p><br>
+    <div class="allTheCards">
     {{range .Array}}
     <div class="card">
         <img src = {{.Image}} class="image"></img>
@@ -19,6 +20,6 @@
         </div>
     </div>
     {{end}}
-   
+   </div>
 </body>
 </html>
