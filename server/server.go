@@ -36,7 +36,7 @@ type DataArray struct {
 var Dataarray DataArray
 var datatest Datatest
 var test2 Datatest
-var test3 Datatest
+
 
 func main() {
 	datatest.ID = 1
@@ -58,16 +58,6 @@ func main() {
 	Dataarray.Array = append(Dataarray.Array, datatest)
 	Dataarray.Array = append(Dataarray.Array, test2)
 
-	test3.ID = 1
-	test3.Image = "https://groupietrackers.herokuapp.com/api/images/queen.jpeg"
-	test3.Name = "yooo"
-	test3.Members = []string{"John Lennon", "Paul McCartney", "George Harrison", "Ringo Starr"}
-	test3.CreationDate = 1960
-	test3.FirstAlbum = "Please Please Me"
-	test3.Locations = "Liverpool, England"
-	test3.ConcertDates = "1962-1966"
-	Dataarray.Array = append(Dataarray.Array, datatest)
-	Dataarray.Array = append(Dataarray.Array, test3)
 
 	//OpenAPI("https://groupietrackers.herokuapp.com/api")
 	fmt.Println(Data.Artists)
