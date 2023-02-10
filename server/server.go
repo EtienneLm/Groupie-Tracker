@@ -17,7 +17,7 @@ var testre groupietrackers.ExtractRelation
 
 func main() {
 	InitAPI()
-	//Inisialistion()
+	Inisialistion()
 }
 
 func Inisialistion() {

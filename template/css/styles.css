@@ -6,10 +6,20 @@ body {
   
 .image{
     width: 90%;
-    border-radius: 10px;
+    border-radius: 10%;
     margin-top: 10px;
     margin-left: 11px;
     /* align-content: center; */
+    transition: all 5s ease-in-out;
+}
+
+
+.image:hover{
+  border-radius: 50%;
+  transform: rotate(360deg);
+  
+  /* transition: 10s; */
+  
 }
 
 .card {
@@ -65,4 +75,5 @@ body {
   .title:hover{
     color: rgb(171, 138, 190);
   }
+  
   
