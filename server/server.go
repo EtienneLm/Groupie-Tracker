@@ -11,10 +11,13 @@ import (
 )
 
 var Cards groupietrackers.Cards
+var testloc groupietrackers.ExtractLocation
+var testdates groupietrackers.ExtractDates
+var testre groupietrackers.ExtractRelation
 
 func main() {
-	OpenAPI("https://groupietrackers.herokuapp.com/api/artists", Cards.Array)
-	Inisialistion()
+	InitAPI()
+	//Inisialistion()
 }
 
 func Inisialistion() {
@@ -26,7 +29,7 @@ func Inisialistion() {
 	http.ListenAndServe(":"+Port, nil)                           //We start the server
 }
 
-func OpenAPI(url string, Data interface{}) {
+func APICall(url string) (data []byte) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -38,12 +41,26 @@ func OpenAPI(url string, Data interface{}) {
 		os.Exit(0)
 	}
 	defer res.Body.Close()
-	data, err := ioutil.ReadAll(res.Body)
+	data, err = ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	err = json.Unmarshal(data, &Cards.Array)
+	return
+}
+
+func InitAPI() {
+	//We call artists from API
+	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
+	json.Unmarshal(data, &Cards.Array)
+	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
+	json.Unmarshal(data, &testloc)
+	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
+	json.Unmarshal(data, &testdates)
+	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
+	json.Unmarshal(data, &testre)
+	fmt.Println(testre)
+
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {

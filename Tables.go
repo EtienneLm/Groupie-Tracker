@@ -1,26 +1,42 @@
 package groupietrackers
 
+type ExtractLocation struct {
+	Index []Location
+}
+type ExtractDates struct {
+	Index []Dates
+}
+type ExtractRelation struct {
+	Index []Relations
+}
+type Relations struct {
+	Id             int
+	DatesLocations [][]string
+}
+
+type Location struct {
+	Id       int
+	Location []string
+	Dates    Dates
+}
+
+type Dates struct {
+	Id    int
+	Dates []string
+}
+
 type Artists struct {
 	Id           int
 	Image        string
 	Name         string
 	Members      []string
 	CreationDate int
-	FirstAlbum   string
-	Locations    string
-	ConcertDates string
-	Relations    string
+	FirstAlbum   []string
+	Locations    Location
+	ConcertDates Dates
+	Relations    Relations
 }
+
 type Cards struct {
 	Array []Artists
 }
-
-/*{"id":1,
-"image":"https://groupietrackers.herokuapp.com/api/images/queen.jpeg",
-"name":"Queen",
-"members":["Freddie Mercury","Brian May","John Daecon","Roger Meddows-Taylor","Mike Grose","Barry Mitchell","Doug Fogie"],
-"creationDate":1970,
-"firstAlbum":"14-12-1973",
-"locations":"https://groupietrackers.herokuapp.com/api/locations/1",
-"concertDates":"https://groupietrackers.herokuapp.com/api/dates/1",
-"relations":"https://groupietrackers.herokuapp.com/api/relation/1"}*/
