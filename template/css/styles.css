@@ -61,3 +61,11 @@ body {
   .title:hover{
     color: rgb(171, 138, 190);
   }
+  
+  .cardButton{
+    height: auto;
+    width: auto;
+    /* background-color: transparent; */
+    /* background-color:black ;
+    border: 90cm; */
+  }
