@@ -25,7 +25,7 @@ var artists Artists
 
 func main() {
 
-	OpenAPI("https://groupietrackers.herokuapp.com/api")
+	OpenAPI("https://groupietrackers.herokuapp.com/api/locations")
 	fmt.Println(artists)
 	//Inisialistion()
 }
