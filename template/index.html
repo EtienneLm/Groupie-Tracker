@@ -8,18 +8,18 @@
     <title>Groupie Tracker</title>
 </head>
 <body>
-    <h1>Welcome to our Website</h1>
-    <p>You will fin here all the informations you need !</p><br>
+    <h1 class="title">Welcome to our Website</h1>
     <div class="allTheCards">
-    {{range .Array}}
-    <div class="card">
-        <img src = {{.Image}} class="image"></img>
-        <div class="container">
-            <h2>{{.Name}}</h2>
-            <h4>{{.Members}}</h4>
-        </div>
+        {{range .Array}}
+        <button class="cardButton">
+            <div class="card">
+                <img src = {{.Image}} class="image"></img><br>
+                <div class="container">
+                    <h2>{{.Name}}</h2>
+                </div>
+            </div>
+        </button>
+        {{end}}
     </div>
-    {{end}}
-   </div>
 </body>
 </html>
