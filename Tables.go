@@ -11,13 +11,13 @@ type ExtractRelation struct {
 }
 type Relations struct {
 	Id             int
-	DatesLocations [][]string
+	DatesLocations map[string][]string
 }
 
 type Location struct {
-	Id       int
-	Location []string
-	Dates    Dates
+	Id        int
+	Locations []string
+	Dates     Dates
 }
 
 type Dates struct {

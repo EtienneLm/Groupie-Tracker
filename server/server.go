@@ -11,9 +11,9 @@ import (
 )
 
 var Cards groupietrackers.Cards
-var testloc groupietrackers.ExtractLocation
-var testdates groupietrackers.ExtractDates
-var testre groupietrackers.ExtractRelation
+var LocationEx groupietrackers.ExtractLocation
+var DatesEx groupietrackers.ExtractDates
+var RelationEx groupietrackers.ExtractRelation
 
 func main() {
 	InitAPI()
@@ -57,12 +57,16 @@ func InitAPI() {
 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
 	json.Unmarshal(data, &Cards.Array)
 	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
-	json.Unmarshal(data, &testloc)
+	json.Unmarshal(data, &LocationEx)
 	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
-	json.Unmarshal(data, &testdates)
+	json.Unmarshal(data, &DatesEx)
 	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
-	json.Unmarshal(data, &testre)
-	fmt.Println(testre)
+	json.Unmarshal(data, &RelationEx)
+	for index, _ := range Cards.Array {
+		Cards.Array[index].Locations = LocationEx.Index[index]
+		Cards.Array[index].ConcertDates = DatesEx.Index[index]
+		Cards.Array[index].Relations = RelationEx.Index[index]
+	}
 
 }
 
