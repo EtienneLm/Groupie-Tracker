@@ -24,7 +24,9 @@ func Inisialistion() {
 	styles := http.FileServer(http.Dir("template/css"))
 	http.Handle("/styles/", http.StripPrefix("/styles", styles)) //We link the css with http.Handle
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
-	http.ListenAndServe(":"+Port, nil)                           //We start the server
+	http.HandleFunc("/artistPage", artistPage)
+	http.ListenAndServe(":"+Port, nil) //We start the server
+
 }
 
 func OpenAPI(url string, Data interface{}) {
@@ -50,4 +52,9 @@ func OpenAPI(url string, Data interface{}) {
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/index.html")) //We link the template and the html file
 	tmpl.Execute(w, Cards)
+}
+func artistPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/index.html")) //change the html
+	fmt.Println(r.FormValue("cardButton"))
+	tmpl.Execute(w, nil)
 }

@@ -10,13 +10,15 @@
 <body>
     <h1 class="title">Welcome to our Website</h1>
     <div class="allTheCards">
-        {{range .Array}}
-            <button class="card">
-                <img src = {{.Image}} class="image"></img><br>
-                <div class="container">
-                    <h2>{{.Name}}</h2>
-                </div>
-            </button>
+        {{range .Array}}    
+        <form action="artistPage" method="post">
+        <button class="card" value="{{.Id}}" type="submit" name="cardButton">
+            <img src = {{.Image}} class="image"></img><br>
+            <div class="container">
+                <h2>{{.Name}}</h2>
+            </div>
+        </button>
+    </form>
         {{end}}
     </div>
 </body>
