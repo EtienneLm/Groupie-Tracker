@@ -3,31 +3,18 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"groupietrackers"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
 )
 
-type Artists []struct {
-	ID           int
-	Image        string
-	Name         string
-	Members      []string
-	CreationDate int
-	FirstAlbum   string
-	Locations    string
-	ConcertDates string
-	Relations    string
-}
-
-var artists Artists
+var Cards groupietrackers.Cards
 
 func main() {
-
-	OpenAPI("https://groupietrackers.herokuapp.com/api/locations")
-	fmt.Println(artists)
-	//Inisialistion()
+	OpenAPI("https://groupietrackers.herokuapp.com/api/artists", Cards.Array)
+	Inisialistion()
 }
 
 func Inisialistion() {
@@ -39,7 +26,7 @@ func Inisialistion() {
 	http.ListenAndServe(":"+Port, nil)                           //We start the server
 }
 
-func OpenAPI(url string) {
+func OpenAPI(url string, Data interface{}) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -56,10 +43,10 @@ func OpenAPI(url string) {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	err = json.Unmarshal(data, &artists)
+	err = json.Unmarshal(data, &Cards.Array)
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/index.html")) //We link the template and the html file
-	tmpl.Execute(w, artists)
+	tmpl.Execute(w, Cards)
 }
