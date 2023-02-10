@@ -51,11 +51,29 @@ body {
 
 .image{
   width: 90%;
-  border-radius: 10px;
+  border-radius: 100;
   margin-top: 10px;
   margin-left: 11px;
   /* align-content: center; */
 }
+
+.image:hover{
+  border-radius: 50%;
+  transition: 1s;
+  -webkit-animation: rotate 20s infinite;  
+}
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(720deg);
+    transform: rotate(720deg);
+  }
+}
+
+
 
 .container { /*contains the text*/
   padding: -10px 16px ;

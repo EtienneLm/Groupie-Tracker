@@ -13,7 +13,8 @@
         {{range .Array}}    
         <form action="artistPage" method="post">
         <button class="card" value="{{.Id}}" type="submit" name="cardButton">
-            <img src = {{.Image}} class="image"></img><br>
+        
+                <img src = {{.Image}} class="image"></img><br>
             <div class="container">
                 <h2>{{.Name}}</h2>
             </div>
