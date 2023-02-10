@@ -26,14 +26,17 @@ body {
     margin-bottom: 4rem;
     margin-left: 50px;
     margin-right: 50px;
-    /* text-decoration:none; */
+    
+    /* button */
+    border: transparent;
+    cursor: pointer;
   }
   
   .card:hover {
     box-shadow: 0 8px 40px 0 rgb(171, 138, 190);
   }
 
-  .container {
+  .container { /*contains the text*/
     padding: -10px 16px ;
     background-color: #735D78;
     min-height: 10vh;
@@ -42,7 +45,7 @@ body {
     transition: 0.3s;
 }
 
-  .allTheCards{
+  .allTheCards{   /*contains all the cards*/
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -52,6 +55,7 @@ body {
     margin-right: 50px;
 
   }
+
   .title{
     font-size: 80px;
     color: #735D78;
@@ -62,10 +66,3 @@ body {
     color: rgb(171, 138, 190);
   }
   
-  .cardButton{
-    height: auto;
-    width: auto;
-    /* background-color: transparent; */
-    /* background-color:black ;
-    border: 90cm; */
-  }
