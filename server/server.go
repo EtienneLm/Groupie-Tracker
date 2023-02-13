@@ -28,6 +28,7 @@ func Inisialistion() {
 	http.Handle("/styles/", http.StripPrefix("/styles", styles)) //We link the css with http.Handle
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
 	http.HandleFunc("/artistPage", artistPage)
+	http.HandleFunc("/searchName", searchName)
 	http.ListenAndServe(":"+Port, nil) //We start the server
 
 }
@@ -78,4 +79,15 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
 	fmt.Println(r.FormValue("cardButton"))
 	tmpl.Execute(w, nil)
+}
+
+func searchName(w http.ResponseWriter, r *http.Request) {
+	InputSeachBar := r.FormValue("searchName")
+	MainPage(w, r)
+	for _, value := range Cards.Array {
+		fmt.Println(value.Name)
+	}
+	if InputSeachBar == "" {
+		MainPage(w, r)
+	}
 }

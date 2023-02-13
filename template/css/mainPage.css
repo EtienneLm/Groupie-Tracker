@@ -30,8 +30,8 @@ body {
 }
 
 .title:hover{
-  color: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
-}
+  color: rgb(171, 138, 190);
+} 
 
 .card {
   display: flex;
