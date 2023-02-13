@@ -8,10 +8,19 @@
     <title>Groupie Tracker</title>
 </head>
 <body>
+    <div class ="navbar">
+        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/logo.png" width="82%"/></a>
+        <div class="researchBar">
+            <img src=""/>
+            <input class="search" type="text"/>
+        </div>
+    </div>
+    
     <h1 class="title">Welcome to our Website</h1>
     <div class="allTheCards">
         {{range .Array}}    
         <form action="artistPage" method="post">
+<<<<<<< HEAD
         <button class="card" value="{{.Id}}" type="submit" name="cardButton">
         
                 <img src = {{.Image}} class="image"></img><br>
@@ -20,6 +29,15 @@
             </div>
         </button>
     </form>
+=======
+            <button class="card" value="{{.Id}}" type="submit" name="cardButton">
+                <img src = {{.Image}} class="image"></img><br>
+                <div class="container">
+                    <h2>{{.Name}}</h2>
+                </div>
+            </button>
+        </form>
+>>>>>>> etienne
         {{end}}
     </div>
 </body>
