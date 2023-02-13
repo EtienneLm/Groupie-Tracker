@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 var Cards groupietrackers.Cards
@@ -28,6 +29,7 @@ func Inisialistion() {
 	http.Handle("/styles/", http.StripPrefix("/styles", styles)) //We link the css with http.Handle
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
 	http.HandleFunc("/artistPage", artistPage)
+	http.HandleFunc("/searchName", searchName)
 	http.ListenAndServe(":"+Port, nil) //We start the server
 
 }
@@ -63,6 +65,7 @@ func InitAPI() {
 	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
 	json.Unmarshal(data, &RelationEx)
 	for index, _ := range Cards.Array {
+		Cards.Array[index].SpotifyId = groupietrackers.Spotify[Cards.Array[index].Id]
 		Cards.Array[index].Locations = LocationEx.Index[index]
 		Cards.Array[index].ConcertDates = DatesEx.Index[index]
 		Cards.Array[index].Relations = RelationEx.Index[index]
@@ -76,6 +79,21 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 }
 func artistPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
-	fmt.Println(r.FormValue("cardButton"))
-	tmpl.Execute(w, nil)
+	index, err := strconv.Atoi(r.FormValue("cardButton"))
+	if err != nil {
+		fmt.Println("Index error in  html value , is not a number")
+		MainPage(w, r)
+	}
+	tmpl.Execute(w, Cards.Array[index-1])
+}
+
+func searchName(w http.ResponseWriter, r *http.Request) {
+	InputSeachBar := r.FormValue("searchName")
+	MainPage(w, r)
+	for _, value := range Cards.Array {
+		fmt.Println(value.Name)
+	}
+	if InputSeachBar == "" {
+		MainPage(w, r)
+	}
 }

@@ -15,7 +15,7 @@ body {
   width: 10vh; 
   min-height: auto;
   text-decoration:none;
-  background-color: transparent;
+  opacity: 0.9;
 }
 
 .researchBar{
@@ -25,19 +25,19 @@ body {
 
 .title{
   font-size: 80px;
-  color: #4f3053;
+  color: rgb(210, 202, 202);
   transition: 0.3s;
 }
 
 .title:hover{
-  color: rgb(118, 118, 118);
-}
+  color: rgb(171, 138, 190);
+} 
 
 .card {
   display: flex;
   flex-direction: column;
-  background-color: rgb(233, 99, 84) ;
-  box-shadow: 0 4px 8px 0 rgb(124, 79, 150);
+  background-color: rgb(210, 202, 202);
+  box-shadow: 0 4px 8px 0 rgb(171, 138, 190);
   
   transition: 0.3s;
   border-radius: 10px;
@@ -54,8 +54,7 @@ body {
 }
 
 .card:hover {
-  box-shadow: 0 8px 40px 0 rgb(171, 138, 190);
-  transform: scale(1.1);
+  box-shadow: 0 8px 40px 0 rgb(187, 164, 199);
 }
 
 .allTheCards{   /*contains all the cards*/
@@ -101,7 +100,7 @@ body {
 
 .container { /*contains the text*/
   padding: -10px 16px ;
-  background-color: #7e5683;
+  background-color: rgb(210, 202, 202);
   min-height: 10vh;
   border-radius: 5px;
   text-align: center;
