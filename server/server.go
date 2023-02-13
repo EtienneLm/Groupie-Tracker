@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 )
 
 var Cards groupietrackers.Cards
@@ -88,12 +89,18 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func searchName(w http.ResponseWriter, r *http.Request) {
+	NewDataForInput := groupietrackers.Cards{}
 	InputSeachBar := r.FormValue("searchName")
-	MainPage(w, r)
-	for _, value := range Cards.Array {
-		fmt.Println(value.Name)
-	}
 	if InputSeachBar == "" {
 		MainPage(w, r)
 	}
+
+	for _, value := range Cards.Array {
+		fmt.Println(value.Name)
+		if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
+			NewDataForInput.Array = append(NewDataForInput.Array, value)
+		}
+	}
+	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
+	tmpl.Execute(w, NewDataForInput)
 }
