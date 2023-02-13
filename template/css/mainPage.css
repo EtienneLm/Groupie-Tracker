@@ -107,3 +107,17 @@ body {
   text-align: center;
   transition: 0.3s;
 }
+
+.logoLoupe{
+  height: 50px;
+  width: 50px;
+  min-height: auto;
+  text-decoration:none;
+  background-color: transparent;
+}
+
+.navbar{
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.438);
+  
+}
