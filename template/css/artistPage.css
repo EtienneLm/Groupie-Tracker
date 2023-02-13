@@ -1,5 +1,38 @@
 body {
     text-align: center;
-    background-color: rgb(228, 231, 173);
+    background-color: rgb(171, 138, 190);
     scroll-behavior: smooth;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
   }
+
+.Top-Bar{
+  background-color: rgb(228, 231, 173);
+  width: 100vw;
+  height: 20vh;
+}
+.Left-Square{
+  display: flex;
+  background-color: rgb(228, 231, 173);
+  height: 60vh;
+  width: 45vw;
+
+}
+.PageBox{
+  display: flex;
+  flex-direction: column ;
+  margin-top: 5vh;
+  margin-left: 2vw;
+  background-color: red;
+  height: 70vh;
+  width: 96vw;
+}
+img{
+  max-width: 20vh;
+  max-height: 20vh;
+  border: rgb(171, 138, 190) 7px solid;
+  border-radius: 100px;
+  margin-top: 1vh;
+  margin-left: 1vh;
+}

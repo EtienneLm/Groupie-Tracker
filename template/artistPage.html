@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,20 @@
     <title>Artist Page</title>
 </head>
 <body>
+    <div class="Top-Bar"></div>
+
+    <div class="PageBox">
+        <div class="Left-Square">
+            <img src={{.Image}} alt="">
+        </div>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div class="Left-Bar"></div>
+        <div> 
+            <img src="" alt="">
+            <input type="text">
+        </div>
+
+    </div>
     
 </body>
-
 </html>
