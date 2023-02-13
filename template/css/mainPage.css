@@ -1,24 +1,24 @@
 body {
   text-align: center;
-  background-color: rgb(228, 231, 173);
+  background-color: teal;
   scroll-behavior: smooth;
 }
 
 .title{
   font-size: 80px;
-  color: #735D78;
+  color: #4f3053;
   transition: 0.3s;
 }
 
 .title:hover{
-  color: rgb(171, 138, 190);
+  color: rgb(118, 118, 118);
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  background-color: #735D78;
-  box-shadow: 0 4px 8px 0 rgb(171, 138, 190);
+  background-color: rgb(233, 99, 84) ;
+  box-shadow: 0 4px 8px 0 rgb(124, 79, 150);
   
   transition: 0.3s;
   border-radius: 10px;
@@ -82,10 +82,9 @@ body {
 
 .container { /*contains the text*/
   padding: -10px 16px ;
-  background-color: #735D78;
+  background-color: #7e5683;
   min-height: 10vh;
   border-radius: 5px;
   text-align: center;
   transition: 0.3s;
 }
-
