@@ -20,6 +20,13 @@
     
     
     <h1 class="title">Welcome to our Website</h1>
+
+    <div class="concertBar">
+        <button class="concertButton" type="submit">See concert</button>
+        <button class="aboutUsButton" type="submit">About us</button>
+        <button class="contactButton" type="submit">Contact us</button>
+    </div><br>
+
     <div class="allTheCards">
         {{range .Array}}    
         <form action="artistPage" method="post">
@@ -32,5 +39,6 @@
         </form>
         {{end}}
     </div>
+
 </body>
 </html>

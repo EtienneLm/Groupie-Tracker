@@ -93,14 +93,15 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 	InputSeachBar := r.FormValue("searchName")
 	if InputSeachBar == "" {
 		MainPage(w, r)
+	} else {
+		for _, value := range Cards.Array {
+			// fmt.Println(value.Name)
+			if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
+				NewDataForInput.Array = append(NewDataForInput.Array, value)
+			}
+		}
+		tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
+		tmpl.Execute(w, NewDataForInput)
 	}
 
-	for _, value := range Cards.Array {
-		fmt.Println(value.Name)
-		if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
-			NewDataForInput.Array = append(NewDataForInput.Array, value)
-		}
-	}
-	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
-	tmpl.Execute(w, NewDataForInput)
 }
