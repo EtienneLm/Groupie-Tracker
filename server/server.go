@@ -31,6 +31,9 @@ func Inisialistion() {
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
 	http.HandleFunc("/artistPage", artistPage)
 	http.HandleFunc("/searchName", searchName)
+	http.HandleFunc("/concert", concertPage)
+	http.HandleFunc("/aboutUs", aboutUsPage)
+	http.HandleFunc("/contactUs", contactUsPage)
 	http.ListenAndServe(":"+Port, nil) //We start the server
 
 }
@@ -79,13 +82,28 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, Cards)
 }
 func artistPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
+	tmpl := template.Must(template.ParseFiles("./template/artistPage.html"))
 	index, err := strconv.Atoi(r.FormValue("cardButton"))
 	if err != nil {
 		fmt.Println("Index error in  html value , is not a number")
 		MainPage(w, r)
 	}
 	tmpl.Execute(w, Cards.Array[index-1])
+}
+
+func concertPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/concertPage.html"))
+	tmpl.Execute(w, r)
+}
+
+func aboutUsPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/aboutUsPage.html"))
+	tmpl.Execute(w, r)
+}
+
+func contactUsPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/contactUsPage.html"))
+	tmpl.Execute(w, r)
 }
 
 func searchName(w http.ResponseWriter, r *http.Request) {
