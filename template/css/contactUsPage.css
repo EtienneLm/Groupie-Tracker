@@ -2,6 +2,7 @@ body {
     text-align: center;
     background: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
     scroll-behavior: smooth;
+    margin: 0px 0px 0px 0px;
 }
 
 .navbar{
@@ -28,27 +29,51 @@ body {
 .allContacts{
     display: flex;
     flex-direction: column; 
-    /* flex-wrap: wrap; */
-    /* justify-content: space-around; */
     align-items: center;
-    margin-left: auto;
-    margin-right: auto; 
-    /* margin-top: 0.5vh; */
     height: 60vh;
-    width: 60vw;
+    width: 40vw;
 }
 
-.contacts{
+.contact{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    height: 36vh;
+    height: 46vh;
     width: 26vw;
+    margin-bottom: 1vh;
+    margin-left: 5vh;
 }
 
-.contacts:hover {
+.contact:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .container {
     padding: 2px 16px;
 }
+
+.coordonées{
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    height: 26vh;
+    width: 26vw;
+    margin-left: 25vw;
+    margin-top: 25vh;
+}
+
+.coordonées:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.coordonéesContainer{
+    padding: 2px 16px;
+}
+
+.holePage{
+    display: flex;
+    width: 100vw;
+    height: 110vh;
+    margin-bottom: 2vh;
+    margin-top: 3vh;
+}
+
