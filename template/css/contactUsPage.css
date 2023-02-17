@@ -73,11 +73,12 @@ body {
 
 .holePage{
     display: flex;
-    width: 98vw;
+    width: 96vw;
     height: 135vh;
-    margin-bottom: 2vh;
+    margin-bottom: 5vh;
     margin-top: 3vh;
-    margin-left: 2vw;    
+    margin-left: 2vw; 
+    margin-right: 2vw;   
 
     background-color: rgba(255,255,255,0.5) ;
 }
