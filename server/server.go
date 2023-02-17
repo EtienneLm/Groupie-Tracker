@@ -16,6 +16,7 @@ var Cards groupietrackers.Cards
 var LocationEx groupietrackers.ExtractLocation
 var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
+var SelectedCard int
 
 func main() {
 	InitAPI()
@@ -67,11 +68,10 @@ func InitAPI() {
 	json.Unmarshal(data, &RelationEx)
 	for index, _ := range Cards.Array {
 		Cards.Array[index].SpotifyId = groupietrackers.Spotify[Cards.Array[index].Id]
-		Cards.Array[index].Locations = LocationEx.Index[index]
-		Cards.Array[index].ConcertDates = DatesEx.Index[index]
-		Cards.Array[index].Relations = RelationEx.Index[index]
+		Cards.Array[index].Locations = LocationEx.Index[index].Locations
+		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
+		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
 	}
-
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
@@ -85,7 +85,9 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Index error in  html value , is not a number")
 		MainPage(w, r)
 	}
-	tmpl.Execute(w, Cards.Array[index-1])
+	SelectedCard = index - 1
+	ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
+	tmpl.Execute(w, ArtistsToDisplay)
 }
 
 func searchName(w http.ResponseWriter, r *http.Request) {
@@ -96,7 +98,6 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, value := range Cards.Array {
-		fmt.Println(value.Name)
 		if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
 			NewDataForInput.Array = append(NewDataForInput.Array, value)
 		}
@@ -104,3 +105,32 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 	tmpl.Execute(w, NewDataForInput)
 }
+
+func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
+	/**********We create a new struct to display the data in the html with exploitable data in template**********/
+	var ArtistsToDisplay groupietrackers.ArtistsToDisplay
+	ArtistsToDisplay.Id = Cards.Array[SelectedCard].Id
+	ArtistsToDisplay.Image = Cards.Array[SelectedCard].Image
+	ArtistsToDisplay.Name = Cards.Array[SelectedCard].Name
+	ArtistsToDisplay.SpotifyId = Cards.Array[SelectedCard].SpotifyId
+	for _, value := range Cards.Array[SelectedCard].Members {
+		toAppend := new(groupietrackers.Member)
+		toAppend.Member = value
+		ArtistsToDisplay.Members = append(ArtistsToDisplay.Members, *toAppend)
+	}
+	var ConcertToAppend []groupietrackers.Concert
+	for _, value := range Cards.Array[SelectedCard].Locations {
+		toAppend := new(groupietrackers.Concert)
+		toAppend.Location = value
+		for _, date := range Cards.Array[SelectedCard].Relations[value] {
+			toAppenddate := new(groupietrackers.DateConcert)
+			toAppenddate.Date = date
+			toAppend.Date = append(toAppend.Date, *toAppenddate)
+		}
+		ConcertToAppend = append(ConcertToAppend, *toAppend)
+	}
+	ArtistsToDisplay.Concert = ConcertToAppend
+	return ArtistsToDisplay
+}
+
+// <iframe style="border-radius:12px ;" src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
