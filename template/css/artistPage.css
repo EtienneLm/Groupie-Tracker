@@ -14,23 +14,41 @@ body {
   .Names{
     display: flex;
     flex-direction: column;
+    background-color: rgba(255,255,255,0.5);
     align-items: flex-start;
     font-size: 1.5vw;
-    margin-left: 3vw ;
+    margin-left: 2vw ;
+    min-width: 12vw;
+    min-height: 45vh;
+    height: auto;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    margin-top: 2vh;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-right: 2vw;
   }
+  
   .Names > p {
     margin: 0;
   }
+
   .Info{
     display: flex;
     align-items: center;
     background-color: rgba(255,255,255,0.5);
     border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    min-width: 70vw;
+    max-height: 45vh;
   }
   
   .imgArtist{
     max-width: 40vh;
     max-height: 40vh;
+    margin-left: 2vh;
   }
 
   .LeftSide{
@@ -50,7 +68,6 @@ body {
     margin-top: 2vh;
     margin-bottom: 2vh;
     display: flex;
-    flex-direction: column;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }

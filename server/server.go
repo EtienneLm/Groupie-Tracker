@@ -66,7 +66,7 @@ func InitAPI() {
 	json.Unmarshal(data, &DatesEx)
 	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
 	json.Unmarshal(data, &RelationEx)
-	for index, _ := range Cards.Array {
+	for index := range Cards.Array {
 		Cards.Array[index].SpotifyId = groupietrackers.Spotify[Cards.Array[index].Id]
 		Cards.Array[index].Locations = LocationEx.Index[index].Locations
 		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
