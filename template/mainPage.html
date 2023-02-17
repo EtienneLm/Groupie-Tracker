@@ -8,17 +8,24 @@
     <title>Groupie Tracker</title>
 </head>
 <body>
+
     <div class ="navbar">
         <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/logo.png" width="90%"/></a>
         <div class="researchBar">
-            <img class="logoLoupe" src="http://localhost:8080/styles/loupe.png"/>
-            <form action="searchName" method="post">
+   
+            <img class="logoLoupe" src="http://localhost:8080/styles/loupe.png" form action="searchName" method="post">
                 <input class="search" type="text" name="searchName"/>
-            </form>
         </div>
     </div>    
     
-    <h1 class="title">Welcome to our Website</h1>
+    <h1 class="title">Bienvenue sur nôtre site !</h1>
+
+    <div class="concertBar">
+        <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
+        <form action="aboutUs" method="post"><button class="aboutUsButton" type="submit">About us</button></form>
+        <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
+    </div><br>
+
     <div class="allTheCards">
         {{range .Array}}    
         <form action="artistPage" method="post">
@@ -31,5 +38,6 @@
         </form>
         {{end}}
     </div>
+
 </body>
 </html>

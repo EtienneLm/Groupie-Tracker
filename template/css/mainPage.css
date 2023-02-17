@@ -150,3 +150,32 @@ body {
   opacity: 0;
   z-index: -1;
 }
+
+
+.concertBar{
+  background: linear-gradient(to left, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
+  height: 5vh;
+  width: 50vw; 
+  display: flex;
+
+  /* display: block;
+  position: relative; */
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+.concertButton{
+  margin-left: auto;
+  margin-right: auto; 
+  color: black;
+}
+
+.aboutUsButton{
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.contactButton{
+  margin-left: auto;
+  margin-right: auto; 
+}
