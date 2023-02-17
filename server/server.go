@@ -95,15 +95,15 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 	InputSeachBar := r.FormValue("searchName")
 	if InputSeachBar == "" {
 		MainPage(w, r)
-	}
-
-	for _, value := range Cards.Array {
-		if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
-			NewDataForInput.Array = append(NewDataForInput.Array, value)
+	} else {
+		for _, value := range Cards.Array {
+			if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
+				NewDataForInput.Array = append(NewDataForInput.Array, value)
+			}
 		}
+		tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
+		tmpl.Execute(w, NewDataForInput)
 	}
-	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
-	tmpl.Execute(w, NewDataForInput)
 }
 
 func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
