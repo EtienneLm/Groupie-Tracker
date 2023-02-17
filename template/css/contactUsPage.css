@@ -41,6 +41,8 @@ body {
     width: 26vw;
     margin-bottom: 1vh;
     margin-left: 5vh;
+    margin-top: 5vh;
+
 }
 
 .contact:hover {
@@ -71,9 +73,12 @@ body {
 
 .holePage{
     display: flex;
-    width: 100vw;
-    height: 110vh;
+    width: 98vw;
+    height: 135vh;
     margin-bottom: 2vh;
     margin-top: 3vh;
+    margin-left: 2vw;    
+
+    background-color: rgba(255,255,255,0.5) ;
 }
 
