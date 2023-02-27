@@ -19,13 +19,13 @@ var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
 var wg sync.WaitGroup //We use this value for the invisilble api calls
-var ArtistForEachPage int
+//var ArtistForEachPage int
 var CardsPagination []groupietrackers.Cards
 
 func main() {
 	InitAPI()
-	fmt.Println("Number of artist in a page :")
-	fmt.Scan(&ArtistForEachPage)
+	//fmt.Println("Number of artist in a page :")
+	//fmt.Scan(&ArtistForEachPage)
 	Inisialistion()
 }
 
@@ -146,8 +146,6 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	ArtistsToDisplay.Concert = ConcertToAppend
 	return ArtistsToDisplay
 }
-
-// <iframe style="border-radius:12px ;" src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
 	defer wg.Done() //We use defer for close wg in the end of the function
