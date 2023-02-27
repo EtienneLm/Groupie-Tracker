@@ -7,8 +7,19 @@ body {
   }
 
   .GroupName{
-    font-size: 3vw;
+    font-size: 4vw;
     margin-left: 2vw;
+  }
+
+  .Concert {
+    background-color: rgba(255,255,255,0.5);
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-top: 2vh;
+    max-width: 20vw;
+  }
+  .Concert > h1 {
+    font-size: 30px;
   }
 
   .Names{
@@ -18,15 +29,18 @@ body {
     align-items: flex-start;
     font-size: 1.5vw;
     margin-left: 2vw ;
-    min-width: 12vw;
-    min-height: 45vh;
-    height: auto;
+    min-width: auto;
+    max-height: 45vh;
     padding-left: 2vw;
     padding-right: 2vw;
     margin-top: 2vh;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    margin-right: 2vw;
+    border-radius: 20px;
+    margin-right: 1vw;
+  }
+  .Names > h2 {
+    margin: 0;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
   }
   
   .Names > p {
@@ -40,9 +54,10 @@ body {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     margin-top: 2vh;
-    margin-left: 2vw;
-    min-width: 70vw;
+    margin-left: 1vw;
+    min-width: 40vw;
     max-height: 45vh;
+    padding-right: 2vw;
   }
   
   .imgArtist{
@@ -98,6 +113,10 @@ body {
 .burger-shower:checked ~ .Left-Bar {
   display: flex;
   flex-direction: column;
+}
+.burger-shower:checked ~ .Info {
+  min-width: 40vw;
+  background-color: red;
 }
 
 .burger-shower:checked ~ .leftBarButton{

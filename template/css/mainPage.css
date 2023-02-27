@@ -16,6 +16,7 @@ body {
   min-height: auto;
   text-decoration:none;
   opacity: 0.9;
+  border-radius: 50px;
 }
 
 .researchBar{
