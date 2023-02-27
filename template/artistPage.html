@@ -9,20 +9,32 @@
     <title>Artist Page</title>
 </head>
 <body>
-    <div class="Top-Bar"></div>
-
-    <div class="PageBox">
-        <div class="Left-Square">
-            <img src={{.Image}} alt="">
+    <div class="LeftSide">
+        <input type="checkbox" id="burger-shower" class="burger-shower">
+        <label for="burger-shower" class="treeBar">
+            <div class="first-bar"></div>
+            <div class="second-bar"></div>
+            <div class="third-bar"></div>
+        </label>
+        <div class="Left-Bar">
+            <a href ="http://localhost:8080" ><button class="leftBarButton">Menu</button></a>
         </div>
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        <div class="Left-Bar"></div>
-        <div> 
-            <img src="" alt="">
-            <input type="text">
-        </div>
-
     </div>
     
+    <div class="Principal">
+        <div class="Info">
+            <img src={{.Image}} alt="Illustrattion de du groupe {{.Name}}" class="imgArtist">
+            <h1 class="GroupName">{{.Name}}</h1>
+            <div class="Names">
+                <h2>Members :</h2>
+                {{range .Members}}
+                <p>{{.Member}}</p>
+            {{end}}
+            </div>
+        </div>
+        {{range .Concert}}
+        {{end}}
+    </div>
+
 </body>
 </html>

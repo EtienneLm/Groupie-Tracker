@@ -32,6 +32,7 @@ body {
 }
 .card:hover {
   box-shadow: 0 8px 40px 0 rgb(187, 164, 199);
+  scale: 114%;
 }
 .allTheCards{   /*contains all the cards*/
   display: flex;
@@ -120,7 +121,7 @@ body {
 }
 
 .search {
-  padding: 10px;
+  
   width: 80px;
   height: 80px;
   background: none;
@@ -128,7 +129,7 @@ body {
   border-radius: 50px;
   box-sizing: border-box;
   font-size: 26px;
-  color: #ffd52d;
+  color: #542678;
   outline: none;
   transition: .5s;
 }
@@ -153,6 +154,7 @@ body {
 
 
 .concertBar{
+  justify-content: space-between;
   background: linear-gradient(to left, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
   height: 5vh;
   width: 50vw; 
