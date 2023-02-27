@@ -10,6 +10,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 )
 
 var Cards groupietrackers.Cards
@@ -17,9 +18,14 @@ var LocationEx groupietrackers.ExtractLocation
 var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
+var wg sync.WaitGroup //We use this value for the invisilble api calls
+var ArtistForEachPage int
+var CardsPagination []groupietrackers.Cards
 
 func main() {
 	InitAPI()
+	fmt.Println("Number of artist in a page :")
+	fmt.Scan(&ArtistForEachPage)
 	Inisialistion()
 }
 
@@ -33,7 +39,6 @@ func Inisialistion() {
 	http.HandleFunc("/artistPage", artistPage)
 	http.HandleFunc("/searchName", searchName)
 	http.ListenAndServe(":"+Port, nil) //We start the server
-
 }
 
 func APICall(url string) (data []byte) {
@@ -60,18 +65,9 @@ func InitAPI() {
 	//We call artists from API
 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
 	json.Unmarshal(data, &Cards.Array)
-	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
-	json.Unmarshal(data, &LocationEx)
-	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
-	json.Unmarshal(data, &DatesEx)
-	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
-	json.Unmarshal(data, &RelationEx)
-	for index, _ := range Cards.Array {
-		Cards.Array[index].SpotifyId = groupietrackers.Spotify[Cards.Array[index].Id]
-		Cards.Array[index].Locations = LocationEx.Index[index].Locations
-		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
-		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
-	}
+	wg.Add(1)               //We create a secondary chanel
+	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
+	wg.Wait()               //We stop the chanel
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
@@ -134,3 +130,19 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 }
 
 // <iframe style="border-radius:12px ;" src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
+	defer wg.Done() //We use defer for close wg in the end of the function
+	data := APICall("https://groupietrackers.herokuapp.com/api/locations")
+	json.Unmarshal(data, &LocationEx)
+	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
+	json.Unmarshal(data, &DatesEx)
+	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
+	json.Unmarshal(data, &RelationEx)
+	for index := range Cards.Array {
+		Cards.Array[index].SpotifyId = groupietrackers.Spotify[Cards.Array[index].Id]
+		Cards.Array[index].Locations = LocationEx.Index[index].Locations
+		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
+		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
+	}
+}

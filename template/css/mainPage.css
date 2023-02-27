@@ -3,6 +3,27 @@ body {
   background: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
   scroll-behavior: smooth;
 }
+
+.navbar{
+  display: flex;
+  background-color: transparent;
+  min-height: 10vh;
+}
+
+.navHomeButton{
+  height: 10vh;
+  width: 10vh; 
+  min-height: auto;
+  text-decoration:none;
+  opacity: 0.9;
+  border-radius: 50px;
+}
+
+.researchBar{
+  color: transparent;
+  margin-top: 0vh;
+}
+
 .title{
   font-size: 80px;
   color: rgb(210, 202, 202);

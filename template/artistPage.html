@@ -22,19 +22,32 @@
     </div>
     
     <div class="Principal">
-        <div class="Info">
+        <div style="display: flex;">
+          <div class="Info">
             <img src={{.Image}} alt="Illustrattion de du groupe {{.Name}}" class="imgArtist">
             <h1 class="GroupName">{{.Name}}</h1>
-            <div class="Names">
-                <h2>Members :</h2>
-                {{range .Members}}
-                <p>{{.Member}}</p>
-            {{end}}
-            </div>
         </div>
-        {{range .Concert}}
-        {{end}}
+        <div class="Names">
+            <h2>Members :</h2>
+            {{range .Members}}
+            <p>- {{.Member}}</p>
+            {{end}}
+        </div> 
+
+        </div>
+        <div class="Concert">
+            <h1>Concert dates :</h1>
+            {{range .Concert}}
+            <div>
+                <h2>{{.Location}} :</h2>
+                {{range .Date}}
+                <p>- {{.Date}}</p>
+                {{end}}
+
+            </div>
+            {{end}}
+        </div>
     </div>
 
 </body>
-</html>
+</html> 
