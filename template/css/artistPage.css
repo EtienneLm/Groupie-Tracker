@@ -42,6 +42,7 @@ body {
     margin-bottom: 1vh;
     margin-top: 1vh;
   }
+  
   .Names > p {
     margin: 0;
   }
@@ -62,6 +63,7 @@ body {
   .imgArtist{
     max-width: 40vh;
     max-height: 40vh;
+    margin-left: 2vh;
   }
 
   .LeftSide{
@@ -81,7 +83,6 @@ body {
     margin-top: 2vh;
     margin-bottom: 2vh;
     display: flex;
-    flex-direction: column;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }
