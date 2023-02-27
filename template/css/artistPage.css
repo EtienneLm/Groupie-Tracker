@@ -11,6 +11,12 @@ body {
     margin-left: 2vw;
   }
 
+  .Spotify {
+    max-width: 45vw;
+    margin-top: 2vh;
+    margin-left: 1vh;
+  }
+
   .Concert {
     background-color: rgba(255,255,255,0.5);
     margin-left: 1vw;
@@ -63,7 +69,6 @@ body {
   .imgArtist{
     max-width: 40vh;
     max-height: 40vh;
-    margin-left: 2vh;
   }
 
   .LeftSide{
@@ -83,6 +88,7 @@ body {
     margin-top: 2vh;
     margin-bottom: 2vh;
     display: flex;
+    flex-direction: column;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }
