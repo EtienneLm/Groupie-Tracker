@@ -59,8 +59,9 @@ body {
     transition: 0.3s;
     height: 26vh;
     width: 26vw;
-    margin-left: 25vw;
-    margin-top: 25vh;
+    margin-left: 15vw;
+    margin-top: 15vh;
+    position: absolute;
 }
 
 .coordonées:hover {
@@ -78,8 +79,26 @@ body {
     margin-bottom: 5vh;
     margin-top: 3vh;
     margin-left: 2vw; 
-    margin-right: 2vw;   
+    margin-right: 2vw; 
+
+    position: static;
 
     background-color: rgba(255,255,255,0.5) ;
 }
 
+.map{
+    width: 40vw;
+    margin-top: 55vh;
+    margin-left: 8vw;
+    position: absolute;
+}
+
+.coordsAndMap{
+    display: flex;
+    width: 54vw;
+    height: 129vh;
+    margin-top: 3vh;
+    margin-left: 2vw; 
+    margin-right: 1.5vw;   
+
+}
