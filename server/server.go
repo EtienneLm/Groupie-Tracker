@@ -19,11 +19,14 @@ var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
 var wg sync.WaitGroup //We use this value for the invisilble api calls
-//var ArtistForEachPage int
+// var ArtistForEachPage int
 var CardsPagination []groupietrackers.Cards
 
 func main() {
-	InitAPI()
+	//We call artists from API
+	wg.Add(1)               //We create a secondary chanel
+	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
+	wg.Wait()               //We stop the chanel
 	//fmt.Println("Number of artist in a page :")
 	//fmt.Scan(&ArtistForEachPage)
 	Inisialistion()
@@ -64,27 +67,21 @@ func APICall(url string) (data []byte) {
 	return
 }
 
-func InitAPI() {
-	//We call artists from API
-	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
-	json.Unmarshal(data, &Cards.Array)
-	wg.Add(1)               //We create a secondary chanel
-	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
-	wg.Wait()               //We stop the chanel
-}
-
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 	tmpl.Execute(w, Cards)
 }
+
 func artistPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./template/artistPage.html"))
+	tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
 	index, err := strconv.Atoi(r.FormValue("cardButton"))
 	if err != nil {
 		fmt.Println("Index error in  html value , is not a number")
 		MainPage(w, r)
 	}
-	tmpl.Execute(w, Cards.Array[index-1])
+	SelectedCard = index - 1
+	ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
+	tmpl.Execute(w, ArtistsToDisplay)
 }
 
 func concertPage(w http.ResponseWriter, r *http.Request) {
@@ -109,7 +106,6 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 		MainPage(w, r)
 	} else {
 		for _, value := range Cards.Array {
-			// fmt.Println(value.Name)
 			if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
 				NewDataForInput.Array = append(NewDataForInput.Array, value)
 			}
@@ -117,7 +113,6 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 		tmpl.Execute(w, NewDataForInput)
 	}
-
 }
 
 func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
@@ -149,7 +144,9 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 
 func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
 	defer wg.Done() //We use defer for close wg in the end of the function
-	data := APICall("https://groupietrackers.herokuapp.com/api/locations")
+	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
+	json.Unmarshal(data, &Cards.Array)
+	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
 	json.Unmarshal(data, &LocationEx)
 	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
 	json.Unmarshal(data, &DatesEx)

@@ -61,6 +61,7 @@ type DateConcert struct {
 type Cards struct {
 	Array     []Artists
 	ToDisplay []Artists
+	PageId    int
 }
 
 // todo le reste des artistes 30 au total
