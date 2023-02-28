@@ -23,10 +23,40 @@ var wg sync.WaitGroup //We use this value for the invisilble api calls
 var CardsPagination []groupietrackers.Cards
 
 func main() {
-	InitAPI()
-	//fmt.Println("Number of artist in a page :")
-	//fmt.Scan(&ArtistForEachPage)
+	var ArtistForEachPage int
+	var wg sync.WaitGroup //We use this value for the invisilble api calls
+	//We call artists from API
+	wg.Add(1)               //We create a secondary chanel
+	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
+	wg.Wait()               //We stop the chanel
+	fmt.Println("Number of artist in a page :")
+	fmt.Scan(&ArtistForEachPage)
+	IntoMultiplePages(ArtistForEachPage)
 	Inisialistion()
+}
+
+func IntoMultiplePages(NumberOfCards int) {
+	var TmpCardsArray groupietrackers.Cards
+	TmpCardsArray.NotLastPage = true
+	var TmpIndex int
+	NbrPage := 0
+	for index := range Cards.Array {
+		TmpIndex++
+		TmpCardsArray.Array = append(TmpCardsArray.Array, Cards.Array[index])
+		if TmpIndex == NumberOfCards {
+			TmpIndex = 0
+			TmpCardsArray.PreviousPage = NbrPage - 1
+			TmpCardsArray.NexPage = NbrPage + 1
+			CardsPagination = append(CardsPagination, TmpCardsArray)
+			TmpCardsArray.Array = nil
+			TmpCardsArray.NotFirstPage = true
+			NbrPage++
+		}
+	}
+	TmpCardsArray.NotLastPage = false
+	TmpCardsArray.PreviousPage = NbrPage - 1
+	TmpCardsArray.NexPage = NbrPage + 1
+	CardsPagination = append(CardsPagination, TmpCardsArray)
 }
 
 func Inisialistion() {
@@ -41,6 +71,7 @@ func Inisialistion() {
 	http.HandleFunc("/concert", concertPage)
 	http.HandleFunc("/aboutUs", aboutUsPage)
 	http.HandleFunc("/contactUs", contactUsPage)
+	http.HandleFunc("/changePage", ChangePage)
 	http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
@@ -64,29 +95,27 @@ func APICall(url string) (data []byte) {
 	return
 }
 
-func InitAPI() {
-	//We call artists from API
-	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
-	json.Unmarshal(data, &Cards.Array)
-	wg.Add(1)               //We create a secondary chanel
-	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
-	wg.Wait()               //We stop the chanel
-}
-
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
-	tmpl.Execute(w, Cards)
+	tmpl.Execute(w, CardsPagination[0])
 }
+func ChangePage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
+	ToPageNbr, _ := strconv.Atoi(r.FormValue("topage"))
+	tmpl.Execute(w, CardsPagination[ToPageNbr])
+}
+
 func artistPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/artistPage.html"))
 	index, err := strconv.Atoi(r.FormValue("cardButton"))
 	if err != nil {
-		fmt.Println("Index error in  html value , is not a number")
 		MainPage(w, r)
+	} else {
+		SelectedCard = index - 1
+		ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
+		tmpl.Execute(w, ArtistsToDisplay)
 	}
-	SelectedCard = index - 1
-	ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
-	tmpl.Execute(w, ArtistsToDisplay)
+
 }
 
 func concertPage(w http.ResponseWriter, r *http.Request) {
@@ -127,6 +156,7 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	ArtistsToDisplay.Image = Cards.Array[SelectedCard].Image
 	ArtistsToDisplay.Name = Cards.Array[SelectedCard].Name
 	ArtistsToDisplay.SpotifyId = Cards.Array[SelectedCard].SpotifyId
+	ArtistsToDisplay.CreationDate = Cards.Array[SelectedCard].CreationDate
 	for _, value := range Cards.Array[SelectedCard].Members {
 		toAppend := new(groupietrackers.Member)
 		toAppend.Member = value
@@ -149,7 +179,9 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 
 func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
 	defer wg.Done() //We use defer for close wg in the end of the function
-	data := APICall("https://groupietrackers.herokuapp.com/api/locations")
+	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
+	json.Unmarshal(data, &Cards.Array)
+	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
 	json.Unmarshal(data, &LocationEx)
 	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
 	json.Unmarshal(data, &DatesEx)

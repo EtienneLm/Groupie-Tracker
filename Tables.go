@@ -59,8 +59,12 @@ type DateConcert struct {
 }
 
 type Cards struct {
-	Array     []Artists
-	ToDisplay []Artists
+	Array        []Artists
+	ToDisplay    []Artists
+	NotFirstPage bool
+	NotLastPage  bool
+	PreviousPage int
+	NexPage      int
 }
 
 // todo le reste des artistes 30 au total

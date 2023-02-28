@@ -42,7 +42,19 @@
                 </div>
             </button>
         </form>
-        {{end}}
+        {{end}} 
+    </div>
+    <div class="ButtonForChangePage">
+    {{if .NotFirstPage}}
+        <form action="changePage" method="post">
+            <button class="previousPage" type="submit" name="topage" value = "{{.PreviousPage}}"><i class="arrow left"></i></button>
+        </form> 
+    {{end}}
+    {{if .NotLastPage}} 
+    <form action="changePage" method="post">
+            <button class="nextPage" type="submit" name="topage" value = "{{.NexPage}}"><i class="arrow right"></i></button>
+    </form>
+    {{end}} 
     </div>
 
 </body>
