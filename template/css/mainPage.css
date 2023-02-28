@@ -121,3 +121,42 @@ body {
   background-color: rgba(0, 0, 0, 0.438);
   
 }
+
+.previousPage {
+  background-color: rgb(210, 202, 202);
+  width: 5vw;
+  height: 6vh;
+  border-radius: 15px ;
+  border: transparent;
+  margin-right: 1vw;
+}
+.nextPage {
+  background-color: rgb(210, 202, 202);
+  width: 5vw;
+  height: 6vh;
+  border-radius: 15px ;
+  border: transparent;
+  margin-left: 1vw;
+}
+.ButtonForChangePage {
+  display: flex;
+  width: 98vw;
+  justify-content: center;
+}
+/*https://www.w3schools.com/howto/howto_css_arrows.asp*/
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}

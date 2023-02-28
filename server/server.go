@@ -104,12 +104,13 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
 	index, err := strconv.Atoi(r.FormValue("cardButton"))
 	if err != nil {
-		fmt.Println("Index error in  html value , is not a number")
 		MainPage(w, r)
+	} else {
+		SelectedCard = index - 1
+		ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
+		tmpl.Execute(w, ArtistsToDisplay)
 	}
-	SelectedCard = index - 1
-	ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
-	tmpl.Execute(w, ArtistsToDisplay)
+
 }
 
 func searchName(w http.ResponseWriter, r *http.Request) {
@@ -135,6 +136,7 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	ArtistsToDisplay.Image = Cards.Array[SelectedCard].Image
 	ArtistsToDisplay.Name = Cards.Array[SelectedCard].Name
 	ArtistsToDisplay.SpotifyId = Cards.Array[SelectedCard].SpotifyId
+	ArtistsToDisplay.CreationDate = Cards.Array[SelectedCard].CreationDate
 	for _, value := range Cards.Array[SelectedCard].Members {
 		toAppend := new(groupietrackers.Member)
 		toAppend.Member = value
