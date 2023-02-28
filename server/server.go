@@ -19,7 +19,7 @@ var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
 var wg sync.WaitGroup //We use this value for the invisilble api calls
-//var ArtistForEachPage int
+// var ArtistForEachPage int
 var CardsPagination []groupietrackers.Cards
 
 func main() {
@@ -111,10 +111,6 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 		MainPage(w, r)
 	} else {
 		for _, value := range Cards.Array {
-<<<<<<< HEAD
-			// fmt.Println(value.Name)
-=======
->>>>>>> origin/gurvan
 			if strings.Contains(strings.ToLower(value.Name), strings.ToLower(InputSeachBar)) {
 				NewDataForInput.Array = append(NewDataForInput.Array, value)
 			}
@@ -122,10 +118,6 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 		tmpl.Execute(w, NewDataForInput)
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/gurvan
 }
 
 func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
