@@ -18,15 +18,43 @@ var LocationEx groupietrackers.ExtractLocation
 var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
-var wg sync.WaitGroup //We use this value for the invisilble api calls
-//var ArtistForEachPage int
 var CardsPagination []groupietrackers.Cards
 
 func main() {
-	InitAPI()
-	//fmt.Println("Number of artist in a page :")
-	//fmt.Scan(&ArtistForEachPage)
+	var ArtistForEachPage int
+	var wg sync.WaitGroup //We use this value for the invisilble api calls
+	//We call artists from API
+	wg.Add(1)               //We create a secondary chanel
+	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
+	wg.Wait()               //We stop the chanel
+	fmt.Println("Number of artist in a page :")
+	fmt.Scan(&ArtistForEachPage)
+	IntoMultiplePages(ArtistForEachPage)
 	Inisialistion()
+}
+
+func IntoMultiplePages(NumberOfCards int) {
+	var TmpCardsArray groupietrackers.Cards
+	TmpCardsArray.NotLastPage = true
+	var TmpIndex int
+	NbrPage := 0
+	for index := range Cards.Array {
+		TmpIndex++
+		TmpCardsArray.Array = append(TmpCardsArray.Array, Cards.Array[index])
+		if TmpIndex == NumberOfCards {
+			TmpIndex = 0
+			TmpCardsArray.PreviousPage = NbrPage - 1
+			TmpCardsArray.NexPage = NbrPage + 1
+			CardsPagination = append(CardsPagination, TmpCardsArray)
+			TmpCardsArray.Array = nil
+			TmpCardsArray.NotFirstPage = true
+			NbrPage++
+		}
+	}
+	TmpCardsArray.NotLastPage = false
+	TmpCardsArray.PreviousPage = NbrPage - 1
+	TmpCardsArray.NexPage = NbrPage + 1
+	CardsPagination = append(CardsPagination, TmpCardsArray)
 }
 
 func Inisialistion() {
@@ -38,6 +66,7 @@ func Inisialistion() {
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
 	http.HandleFunc("/artistPage", artistPage)
 	http.HandleFunc("/searchName", searchName)
+	http.HandleFunc("/changePage", ChangePage)
 	http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
@@ -61,19 +90,16 @@ func APICall(url string) (data []byte) {
 	return
 }
 
-func InitAPI() {
-	//We call artists from API
-	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
-	json.Unmarshal(data, &Cards.Array)
-	wg.Add(1)               //We create a secondary chanel
-	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
-	wg.Wait()               //We stop the chanel
-}
-
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
-	tmpl.Execute(w, Cards)
+	tmpl.Execute(w, CardsPagination[0])
 }
+func ChangePage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
+	ToPageNbr, _ := strconv.Atoi(r.FormValue("topage"))
+	tmpl.Execute(w, CardsPagination[ToPageNbr])
+}
+
 func artistPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
 	index, err := strconv.Atoi(r.FormValue("cardButton"))
@@ -131,7 +157,9 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 
 func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
 	defer wg.Done() //We use defer for close wg in the end of the function
-	data := APICall("https://groupietrackers.herokuapp.com/api/locations")
+	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
+	json.Unmarshal(data, &Cards.Array)
+	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
 	json.Unmarshal(data, &LocationEx)
 	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
 	json.Unmarshal(data, &DatesEx)
