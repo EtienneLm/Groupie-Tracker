@@ -43,6 +43,7 @@
             <button class="previousPage" type="submit" name="topage" value = "{{.PreviousPage}}"><i class="arrow left"></i></button>
         </form> 
     {{end}}
+    <p style="font-size: 1.5vw ; margin-top: 0;">{{.IdPage}}</p>
     {{if .NotLastPage}} 
     <form action="changePage" method="post">
             <button class="nextPage" type="submit" name="topage" value = "{{.NexPage}}"><i class="arrow right"></i></button>

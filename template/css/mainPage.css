@@ -160,3 +160,9 @@ body {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
+
+.PageNBR {
+  font-size: 1.5vw;
+  font-weight: bold;
+  background-color: red;
+}

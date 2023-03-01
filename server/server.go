@@ -19,42 +19,51 @@ var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
 var CardsPagination []groupietrackers.Cards
+var SortedCardsPagination []groupietrackers.Cards
 
 func main() {
-	var ArtistForEachPage int
+
 	var wg sync.WaitGroup //We use this value for the invisilble api calls
 	//We call artists from API
 	wg.Add(1)               //We create a secondary chanel
 	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
-	wg.Wait()               //We stop the chanel
-	fmt.Println("Number of artist in a page :")
-	fmt.Scan(&ArtistForEachPage)
-	IntoMultiplePages(ArtistForEachPage)
 	Inisialistion()
+	wg.Wait() //We stop the chanel
 }
 
-func IntoMultiplePages(NumberOfCards int) {
+func IntoMultiplePages(NumberOfCards int, Entry []groupietrackers.Artists, toTurnNegative int) []groupietrackers.Cards {
+	var CardPagiantion []groupietrackers.Cards
 	var TmpCardsArray groupietrackers.Cards
 	TmpCardsArray.NotLastPage = true
 	var TmpIndex int
 	NbrPage := 0
-	for index := range Cards.Array {
+	if toTurnNegative == -1 {
+		NbrPage = 1
+	}
+	for index := range Entry {
 		TmpIndex++
-		TmpCardsArray.Array = append(TmpCardsArray.Array, Cards.Array[index])
+		TmpCardsArray.Array = append(TmpCardsArray.Array, Entry[index])
 		if TmpIndex == NumberOfCards {
 			TmpIndex = 0
-			TmpCardsArray.PreviousPage = NbrPage - 1
-			TmpCardsArray.NexPage = NbrPage + 1
-			CardsPagination = append(CardsPagination, TmpCardsArray)
+			TmpCardsArray.PreviousPage = (NbrPage - 1) * toTurnNegative
+			TmpCardsArray.NexPage = (NbrPage + 1) * toTurnNegative
+			if toTurnNegative == -1 {
+				TmpCardsArray.IdPage = NbrPage
+			} else {
+				TmpCardsArray.IdPage = NbrPage + 1
+			}
+			CardPagiantion = append(CardPagiantion, TmpCardsArray)
 			TmpCardsArray.Array = nil
 			TmpCardsArray.NotFirstPage = true
 			NbrPage++
 		}
 	}
 	TmpCardsArray.NotLastPage = false
-	TmpCardsArray.PreviousPage = NbrPage - 1
-	TmpCardsArray.NexPage = NbrPage + 1
-	CardsPagination = append(CardsPagination, TmpCardsArray)
+	TmpCardsArray.PreviousPage = (NbrPage - 1) * toTurnNegative
+	TmpCardsArray.IdPage = NbrPage + 1
+	TmpCardsArray.NexPage = (NbrPage + 1) * toTurnNegative
+	CardPagiantion = append(CardPagiantion, TmpCardsArray)
+	return CardPagiantion
 }
 
 func Inisialistion() {
@@ -97,7 +106,12 @@ func MainPage(w http.ResponseWriter, r *http.Request) {
 func ChangePage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 	ToPageNbr, _ := strconv.Atoi(r.FormValue("topage"))
-	tmpl.Execute(w, CardsPagination[ToPageNbr])
+	if ToPageNbr < 0 {
+		tmpl.Execute(w, SortedCardsPagination[(ToPageNbr*-1)-1])
+	} else {
+		tmpl.Execute(w, CardsPagination[ToPageNbr])
+	}
+
 }
 
 func artistPage(w http.ResponseWriter, r *http.Request) {
@@ -124,8 +138,9 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 				NewDataForInput.Array = append(NewDataForInput.Array, value)
 			}
 		}
+		SortedCardsPagination = IntoMultiplePages(5, NewDataForInput.Array, -1)
 		tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
-		tmpl.Execute(w, NewDataForInput)
+		tmpl.Execute(w, SortedCardsPagination[0])
 	}
 }
 
@@ -173,4 +188,7 @@ func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to ad
 		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
 		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
 	}
+
+	var TmpValueForCards = Cards.Array
+	CardsPagination = IntoMultiplePages(10, TmpValueForCards, 1)
 }

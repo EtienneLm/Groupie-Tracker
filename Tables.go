@@ -63,6 +63,7 @@ type Cards struct {
 	ToDisplay    []Artists
 	NotFirstPage bool
 	NotLastPage  bool
+	IdPage       int
 	PreviousPage int
 	NexPage      int
 }
