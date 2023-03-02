@@ -22,6 +22,7 @@ body {
 .researchBar{
   color: transparent;
   margin-top: 0vh;
+  margin-bottom: 2vh;
 }
 
 .title{
@@ -119,6 +120,8 @@ body {
 .navbar{
   top: 0;
   background-color: rgba(0, 0, 0, 0.438);
+  display: flex;
+  align-items: center;
   
 }
 
@@ -165,4 +168,8 @@ body {
   font-size: 1.5vw;
   font-weight: bold;
   background-color: red;
+}
+.Para {
+  margin-left : 80vw;
+  cursor: pointer;
 }

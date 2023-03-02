@@ -21,6 +21,9 @@
                 <input class="search" type="text" name="searchName" list="names"/>
             </form>
         </div>
+        <form action="adminLog" method="post">
+            <button  style = "border: transparent; background-color: transparent;"> <img src="http://localhost:8080/styles/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px"> </button>
+        </form>
     </div>
     
     
@@ -43,7 +46,9 @@
             <button class="previousPage" type="submit" name="topage" value = "{{.PreviousPage}}"><i class="arrow left"></i></button>
         </form> 
     {{end}}
+    {{if .IsCardIn}} 
     <p style="font-size: 1.5vw ; margin-top: 0;">{{.IdPage}}</p>
+    {{end}}
     {{if .NotLastPage}} 
     <form action="changePage" method="post">
             <button class="nextPage" type="submit" name="topage" value = "{{.NexPage}}"><i class="arrow right"></i></button>

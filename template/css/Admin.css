@@ -1,0 +1,169 @@
+body {
+    text-align: center;
+    background: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
+    scroll-behavior: smooth;
+    margin: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputText {
+    border: black 2px solid;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.5);
+    font-size: 30px;
+    padding: 5px;
+}
+
+.badEntry {
+    color: darkred;
+    font-size: 30px;
+}
+#login-form {
+    display: flex;
+    flex-direction: column;
+    margin-right: 35vw;
+    margin-top: 10vh;
+}
+
+#login-form > button {
+    cursor: pointer;
+    margin-top: 5vh;
+    border: black 2px solid;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.75);
+    font-size: 30px;
+    padding: 5px;
+}
+.label-input {
+    margin-top: 6vh;
+    color: black;
+    font-size: 30px;
+}
+
+.divInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.LeftSide{
+    position: -webkit-sticky;
+    position: sticky;
+    display : flex ;
+    top: 0px;
+    flex-direction: column;
+    max-height: 35vh;
+}
+
+.Left-Bar{
+    max-width: 15vw;
+    background-color: transparent;
+    display: none;
+    margin-right: 2vw;
+    margin-top: 4vh;
+}
+.leftBarButton{
+    background-color: rgba(255,255,255,0.75);
+    border: rgba(255,255,255,0.75) solid 2px;
+    border-radius: 5px;
+    margin-top: 2vh;
+    width: 12vw;
+    height: 5vh;
+    margin-left: 2vw;
+    font-size: 1vw;
+}
+.burger-shower {
+    display: none;
+}
+.leftBarButton:hover{
+   background-color: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1) solid 2px;
+    cursor: pointer;
+}
+.burger-shower:checked ~ .Left-Bar {
+    display: flex;
+    flex-direction: column;
+}
+.burger-shower:checked ~ .Info {
+    min-width: 40vw;
+    background-color: red;
+}
+  
+.burger-shower:checked ~ .leftBarButton{
+    animation: FirstButton 5s;
+}
+  
+.burger-shower:checked ~ .treeBar{
+    margin-left: 5vw;
+    animation: checkfolow 1s;
+}
+.treeBar {
+    margin-top: 5vh;
+    margin-left: 2vw;
+    background-color: transparent;
+    flex-direction: column;
+    display: flex;
+    max-width:  3vw;
+    max-height: 5vh ;
+    z-index: 1;
+}
+.treeBar > div {
+  
+    height: 0.1vh;
+    width: 2vw;
+    border: rgb(210, 202, 202) solid 3px;
+    border-radius: 20px;
+    margin-bottom: 1vh;
+    background-color: rgb(210, 202, 202);
+}
+  
+  .burger-shower:checked ~   .treeBar > .first-bar{ 
+    transform: rotate(45deg);
+    animation: barOne 1s;
+    border: red solid 3px;
+    background: red;
+    
+  }
+
+  .burger-shower:checked ~  .treeBar > .second-bar{
+    transform: rotate(135deg);
+    margin-top: -1vh;
+    animation: barTwo 1s;
+    border: red solid 3px;
+    background: red;
+    
+  }
+  .burger-shower:checked ~  .treeBar > .third-bar{
+    width: 0vw;
+    height: 0vh;
+    border: transparent;
+    display: none;
+    
+  }
+  
+  @keyframes checkfolow {
+    0% {
+      margin-left: 2vw;
+    }
+    100% {
+      margin-left: 5vw;
+    }
+  }
+  @keyframes barOne {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(45deg);
+    }
+  }
+  @keyframes barTwo {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(135deg);
+    }
+  }
