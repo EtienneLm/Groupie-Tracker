@@ -17,7 +17,7 @@ var LocationEx groupietrackers.ExtractLocation
 var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
-var wg sync.WaitGroup //We use this value for the invisilble api calls
+
 // var ArtistForEachPage int
 var CardsPagination []groupietrackers.Cards
 var SortedCardsPagination []groupietrackers.Cards
