@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://localhost:8080/styles/Admin.css">
+
+    <title>Artist Page</title>
+</head>
+<body>
+    <div class="LeftSide">
+        <input type="checkbox" id="burger-shower" class="burger-shower">
+        <label for="burger-shower" class="treeBar">
+            <div class="first-bar"></div>
+            <div class="second-bar"></div>
+            <div class="third-bar"></div>
+        </label>
+        <div class="Left-Bar">
+            <a href ="http://localhost:8080" ><button class="leftBarButton">Menu</button></a>
+            {{if .IsConnected}} 
+            <form action="adminLog" method="post"> <button class="leftBarButton"> Disconnecte </button></form>
+            {{end}}
+        </div>
+    </div>
+    {{if .IsConnected}} 
+    <form action="NbrInPageChange" method="post" id="login-form">
+        <div class = 'divInput'>
+            <label for="mail" class="label-input"> Number of Artists in a page </label>
+            <input type="text" class="inputText" name = "mail" id = "mail" placeholder="Enter Number">
+        </div>
+        <button> Save </button>
+    </form>
+     {{else}} 
+    <form action="adminpage" method="post" id="login-form">
+        <div class = 'divInput'>
+            <label for="mail" class="label-input"> ID </label>
+            <input type="text" class="inputText" name = "mail" id = "mail" placeholder="Enter ID">
+            <label for="psw" class="label-input"> Password </label>
+            <input type="password" class="inputText" name = "psw" id = "psw" placeholder="Enter PassWord">
+        </div>
+        <button> Login as an admin </button>
+        {{if .IsBadInput}}
+        <p  class="badEntry"> Wrong password or id </p>
+        {{end}}
+    </form>
+    {{end}}
+
+    
+</body>
