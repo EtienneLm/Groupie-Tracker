@@ -5,7 +5,18 @@ body {
     margin: 0px;
     display: flex;
   }
-
+  .map {
+    margin-left: 1vw;
+    margin-top: 2vh;
+  }
+  .map > a {
+    color: black;
+    background-color: rgba(255,255,255,0.5) ;
+    padding: 0vw 1vw 0vw 1vw;
+    text-decoration: none;
+    font-size: large;
+    
+  }
   .GroupName{
     font-size: 4vw;
     margin-left: 2vw;
@@ -23,6 +34,10 @@ body {
     margin-right: 1vw;
     margin-top: 2vh;
     max-width: 20vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
   }
   .Concert > h1 {
     font-size: 30px;
