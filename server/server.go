@@ -168,21 +168,6 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func concertPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./template/concertPage.html"))
-	tmpl.Execute(w, r)
-}
-
-func aboutUsPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./template/aboutUsPage.html"))
-	tmpl.Execute(w, r)
-}
-
-func contactUsPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./template/contactUsPage.html"))
-	tmpl.Execute(w, r)
-}
-
 func searchName(w http.ResponseWriter, r *http.Request) {
 	NewDataForInput := groupietrackers.Cards{}
 	InputSeachBar := r.FormValue("searchName")
@@ -228,6 +213,12 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	ArtistsToDisplay.Concert = ConcertToAppend
 	return ArtistsToDisplay
 }
+
+// func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
+// 	defer wg.Done() //We use defer for close wg in the end of the function
+// 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
+// 	json.Unmarshal(data, &Cards.Array)
+// }
 
 func FastServerStart() { // We enter the DB and the word to add for add the word into the target DB
 	fmt.Println("loading ---------------------------------------------------------------------------------------------------- 0%")
