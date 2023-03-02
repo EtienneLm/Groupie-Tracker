@@ -10,7 +10,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"sync"
 )
 
 var Cards groupietrackers.Cards
@@ -21,42 +20,55 @@ var SelectedCard int
 var wg sync.WaitGroup //We use this value for the invisilble api calls
 // var ArtistForEachPage int
 var CardsPagination []groupietrackers.Cards
+var SortedCardsPagination []groupietrackers.Cards
+var Admin groupietrackers.AdminCheck
+var NumberOfCards int = 10
 
 func main() {
-	var ArtistForEachPage int
-	var wg sync.WaitGroup //We use this value for the invisilble api calls
-	//We call artists from API
-	wg.Add(1)               //We create a secondary chanel
-	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
-	wg.Wait()               //We stop the chanel
-	fmt.Println("Number of artist in a page :")
-	fmt.Scan(&ArtistForEachPage)
-	IntoMultiplePages(ArtistForEachPage)
+
+	FastServerStart() //We run AddNewWord in this chanel because the function is slow
 	Inisialistion()
 }
 
-func IntoMultiplePages(NumberOfCards int) {
+func IntoMultiplePages(NumberOfCards int, Entry []groupietrackers.Artists, toTurnNegative int) []groupietrackers.Cards {
+	var CardPagiantion []groupietrackers.Cards
 	var TmpCardsArray groupietrackers.Cards
 	TmpCardsArray.NotLastPage = true
 	var TmpIndex int
 	NbrPage := 0
-	for index := range Cards.Array {
+	if toTurnNegative == -1 {
+		NbrPage = 1
+	}
+	for index := range Entry {
 		TmpIndex++
-		TmpCardsArray.Array = append(TmpCardsArray.Array, Cards.Array[index])
+		TmpCardsArray.Array = append(TmpCardsArray.Array, Entry[index])
 		if TmpIndex == NumberOfCards {
 			TmpIndex = 0
-			TmpCardsArray.PreviousPage = NbrPage - 1
-			TmpCardsArray.NexPage = NbrPage + 1
-			CardsPagination = append(CardsPagination, TmpCardsArray)
+			TmpCardsArray.PreviousPage = (NbrPage - 1) * toTurnNegative
+			TmpCardsArray.NexPage = (NbrPage + 1) * toTurnNegative
+			if toTurnNegative == -1 {
+				TmpCardsArray.IdPage = NbrPage
+			} else {
+				TmpCardsArray.IdPage = NbrPage + 1
+			}
+			if TmpCardsArray.Array != nil {
+				TmpCardsArray.IsCardIn = true
+			}
+			CardPagiantion = append(CardPagiantion, TmpCardsArray)
 			TmpCardsArray.Array = nil
 			TmpCardsArray.NotFirstPage = true
 			NbrPage++
 		}
 	}
 	TmpCardsArray.NotLastPage = false
-	TmpCardsArray.PreviousPage = NbrPage - 1
-	TmpCardsArray.NexPage = NbrPage + 1
-	CardsPagination = append(CardsPagination, TmpCardsArray)
+	TmpCardsArray.PreviousPage = (NbrPage - 1) * toTurnNegative
+	TmpCardsArray.IdPage = NbrPage + 1
+	TmpCardsArray.NexPage = (NbrPage + 1) * toTurnNegative
+	if TmpCardsArray.Array != nil {
+		TmpCardsArray.IsCardIn = true
+	}
+	CardPagiantion = append(CardPagiantion, TmpCardsArray)
+	return CardPagiantion
 }
 
 func Inisialistion() {
@@ -72,6 +84,9 @@ func Inisialistion() {
 	http.HandleFunc("/aboutUs", aboutUsPage)
 	http.HandleFunc("/contactUs", contactUsPage)
 	http.HandleFunc("/changePage", ChangePage)
+	http.HandleFunc("/adminLog", AdminLog)
+	http.HandleFunc("/adminpage", Adminpage)
+	http.HandleFunc("/NbrInPageChange", NbrInPageChange)
 	http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
@@ -95,14 +110,49 @@ func APICall(url string) (data []byte) {
 	return
 }
 
+func NbrInPageChange(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/AdminLog.html")) //We link the template and the html file
+	NewNumberOfCards, _ := strconv.Atoi(r.FormValue("mail"))
+	NumberOfCards = NewNumberOfCards
+	var TmpValueForCards = Cards.Array
+	CardsPagination = IntoMultiplePages(NewNumberOfCards, TmpValueForCards, 1)
+	tmpl.Execute(w, Admin)
+}
+
+func AdminLog(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/AdminLog.html")) //We link the template and the html file
+	Admin.IsConnected = false
+	Admin.IsBadInput = false
+	tmpl.Execute(w, Admin)
+}
+
+func Adminpage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/AdminLog.html")) //We link the template and the html file
+	if groupietrackers.AdminMail == r.FormValue("mail") && groupietrackers.AdminPassword == r.FormValue("psw") || Admin.IsConnected == true {
+		Admin.IsConnected = true
+		Admin.IsBadInput = false
+	} else {
+		Admin.IsConnected = false
+		Admin.IsBadInput = true
+	}
+	tmpl.Execute(w, Admin)
+}
+
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 	tmpl.Execute(w, CardsPagination[0])
 }
+
 func ChangePage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 	ToPageNbr, _ := strconv.Atoi(r.FormValue("topage"))
-	tmpl.Execute(w, CardsPagination[ToPageNbr])
+	if ToPageNbr < 0 {
+
+		tmpl.Execute(w, SortedCardsPagination[(ToPageNbr*-1)-1])
+	} else {
+		tmpl.Execute(w, CardsPagination[ToPageNbr])
+	}
+
 }
 
 func artistPage(w http.ResponseWriter, r *http.Request) {
@@ -144,8 +194,10 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 				NewDataForInput.Array = append(NewDataForInput.Array, value)
 			}
 		}
+		var NewNumberOfCards = NumberOfCards
+		SortedCardsPagination = IntoMultiplePages(NewNumberOfCards, NewDataForInput.Array, -1)
 		tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
-		tmpl.Execute(w, NewDataForInput)
+		tmpl.Execute(w, SortedCardsPagination[0])
 	}
 }
 
@@ -177,14 +229,17 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	return ArtistsToDisplay
 }
 
-func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
-	defer wg.Done() //We use defer for close wg in the end of the function
+func FastServerStart() { // We enter the DB and the word to add for add the word into the target DB
+	fmt.Println("loading ---------------------------------------------------------------------------------------------------- 0%")
 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
 	json.Unmarshal(data, &Cards.Array)
+	fmt.Println("loading +++++++++++++++++++++++++--------------------------------------------------------------------------- 25%")
 	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
 	json.Unmarshal(data, &LocationEx)
+	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------------- 50%")
 	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
 	json.Unmarshal(data, &DatesEx)
+	fmt.Println("loading +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------- 75%")
 	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
 	json.Unmarshal(data, &RelationEx)
 	for index := range Cards.Array {
@@ -193,4 +248,9 @@ func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to ad
 		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
 		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
 	}
+
+	var TmpValueForCards = Cards.Array
+	var NumberOfCardsForFunction = NumberOfCards
+	CardsPagination = IntoMultiplePages(NumberOfCardsForFunction, TmpValueForCards, 1)
+	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 100%")
 }
