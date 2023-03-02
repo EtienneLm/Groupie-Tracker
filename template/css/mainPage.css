@@ -176,29 +176,89 @@ body {
 
 .concertBar{
   justify-content: space-between;
+}
+.buttonBar{
   background: linear-gradient(to left, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
   height: 5vh;
   width: 50vw; 
+  border-radius: 20px;
   display: flex;
-
+  justify-content: space-around;
+  align-items: center;
   /* display: block;
   position: relative; */
   margin-left: auto;
   margin-right: auto;  
 }
 
-.concertButton{
-  margin-left: auto;
-  margin-right: auto; 
+.concertButton {  /*https://getcssscan.com/css-buttons-examples*/
+  background-color: rgb(210, 202, 202);
+  border-radius: 20px;
+  box-shadow: rgba(243, 248, 245, 0.2) 0 -25px 18px -14px inset,rgba(243, 248, 245, 0.15) 0 1px 2px,rgba(243, 248, 245, 0.15) 0 2px 4px,rgba(243, 248, 245, 0.15) 0 4px 8px,rgba(243, 248, 245, 0.15) 0 8px 16px,rgba(243, 248, 245, 0.15) 0 16px 32px;
   color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;             
+  text-decoration: none;
+  transition: all 250ms;   
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
-
-.aboutUsButton{
-  margin-left: auto;
-  margin-right: auto; 
+.concertButton:hover {
+  box-shadow: rgb(210, 202, 202,.35)(44,187,99,.35) 0 -25px 18px -14px inset,rgb(210, 202, 202,.25) 0 1px 2px,rgb(210, 202, 202,.25) 0 2px 4px,rgb(210, 202, 202,.25) 0 4px 8px,rgb(210, 202, 202,.25) 0 8px 16px,rgb(210, 202, 202,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
 }
 
 .contactButton{
   margin-left: auto;
   margin-right: auto; 
+}
+.aboutUsButton {  /*https://getcssscan.com/css-buttons-examples*/
+  background-color: rgb(210, 202, 202);
+  border-radius: 20px;
+  box-shadow: rgba(243, 248, 245, 0.2) 0 -25px 18px -14px inset,rgba(243, 248, 245, 0.15) 0 1px 2px,rgba(243, 248, 245, 0.15) 0 2px 4px,rgba(243, 248, 245, 0.15) 0 4px 8px,rgba(243, 248, 245, 0.15) 0 8px 16px,rgba(243, 248, 245, 0.15) 0 16px 32px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;             
+  text-decoration: none;
+  transition: all 250ms;   
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.aboutUsButton:hover {
+  box-shadow: rgb(210, 202, 202,.35)(44,187,99,.35) 0 -25px 18px -14px inset,rgb(210, 202, 202,.25) 0 1px 2px,rgb(210, 202, 202,.25) 0 2px 4px,rgb(210, 202, 202,.25) 0 4px 8px,rgb(210, 202, 202,.25) 0 8px 16px,rgb(210, 202, 202,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+.contactButton {  /*https://getcssscan.com/css-buttons-examples*/
+  background-color: rgb(210, 202, 202);
+  border-radius: 20px;
+  box-shadow: rgba(243, 248, 245, 0.2) 0 -25px 18px -14px inset,rgba(243, 248, 245, 0.15) 0 1px 2px,rgba(243, 248, 245, 0.15) 0 2px 4px,rgba(243, 248, 245, 0.15) 0 4px 8px,rgba(243, 248, 245, 0.15) 0 8px 16px,rgba(243, 248, 245, 0.15) 0 16px 32px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;             
+  text-decoration: none;
+  transition: all 250ms;   
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.contactButton:hover {
+  box-shadow: rgb(210, 202, 202,.35)(44,187,99,.35) 0 -25px 18px -14px inset,rgb(210, 202, 202,.25) 0 1px 2px,rgb(210, 202, 202,.25) 0 2px 4px,rgb(210, 202, 202,.25) 0 4px 8px,rgb(210, 202, 202,.25) 0 8px 16px,rgb(210, 202, 202,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
 }
