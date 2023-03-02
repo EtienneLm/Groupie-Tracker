@@ -63,11 +63,6 @@ type AdminCheck struct {
 }
 
 type Cards struct {
-<<<<<<< HEAD
-	Array     []Artists
-	ToDisplay []Artists
-	PageId    int
-=======
 	Array        []Artists
 	ToDisplay    []Artists
 	NotFirstPage bool
@@ -76,7 +71,6 @@ type Cards struct {
 	PreviousPage int
 	NexPage      int
 	IsCardIn     bool
->>>>>>> e55113fda482c84964e3e4cef8287157949b8532
 }
 
 // todo le reste des artistes 30 au total

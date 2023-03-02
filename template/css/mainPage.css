@@ -125,9 +125,8 @@ body {
   
 }
 
-<<<<<<< HEAD
 .buttonBar{
-  background: linear-gradient(to left, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
+  background: lightgray;
   height: 5vh;
   width: 50vw; 
   border-radius: 20px;
@@ -136,7 +135,8 @@ body {
   /* display: block;
   position: relative; */
   margin-left: auto;
-  margin-right: auto;  
+  margin-right: auto;
+  margin-bottom: 15vh;   /* à delete*/
 }
 
 .concertButton {  /*https://getcssscan.com/css-buttons-examples*/
@@ -242,7 +242,7 @@ body {
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
-
+  
 }
 .PageNBR {
   font-size: 1.5vw;
@@ -252,4 +252,22 @@ body {
 .Para {
   margin-left : 80vw;
   cursor: pointer;
+}
+
+
+/*sort*/
+.sortHere{
+  background-color: #ffb7b7;
+  width: 15vw;
+  /* margin-bottom: 50vh; */
+}
+
+.legend {
+  /* background-color: #000; */
+  color: #fff;
+  padding: 3px 6px;
+}
+
+.input {
+  margin: 0.4rem;
 }

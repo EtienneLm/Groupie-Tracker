@@ -33,6 +33,21 @@
         <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
         <form action="aboutUs" method="post"><button class="aboutUsButton" type="submit">About us</button></form>
         <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
+
+        <form class="sortHere">
+            <fieldset>
+              <legend>Sort the artist as you want !</legend>
+          
+              <input type="radio" id="alphabeticalOrder" name="sort" value="A">
+              <label for="alphabeticalOrder">Alphabetical Order</label><br>
+          
+              <input type="radio" id="reverseAlphabeticalOrder" name="sort" value="R">
+              <label for="reverseAlphabeticalOrder">Reverse Alphabetical Order</label><br>
+    
+              <input type="radio" id="numberOfArtists" name="sort" value="N">
+              <label for="numberOfArtists">Number of Artists</label><br>
+            </fieldset>
+          </form>
     </div><br>
 
     <div class="allTheCards">
@@ -62,6 +77,7 @@
     </form>
     {{end}} 
     </div>
+
 
 </body>
 </html>
