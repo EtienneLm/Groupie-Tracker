@@ -186,6 +186,21 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func concertPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/concertPage.html"))
+	tmpl.Execute(w, r)
+}
+
+func aboutUsPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/aboutUsPage.html"))
+	tmpl.Execute(w, r)
+}
+
+func contactUsPage(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/contactUsPage.html"))
+	tmpl.Execute(w, r)
+}
+
 func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	/**********We create a new struct to display the data in the html with exploitable data in template**********/
 	var ArtistsToDisplay groupietrackers.ArtistsToDisplay
