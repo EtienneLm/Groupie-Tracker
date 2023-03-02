@@ -17,11 +17,7 @@ var LocationEx groupietrackers.ExtractLocation
 var DatesEx groupietrackers.ExtractDates
 var RelationEx groupietrackers.ExtractRelation
 var SelectedCard int
-<<<<<<< HEAD
-var wg sync.WaitGroup //We use this value for the invisilble api calls
-=======
 
->>>>>>> e55113fda482c84964e3e4cef8287157949b8532
 // var ArtistForEachPage int
 var CardsPagination []groupietrackers.Cards
 var SortedCardsPagination []groupietrackers.Cards
@@ -29,17 +25,8 @@ var Admin groupietrackers.AdminCheck
 var NumberOfCards int = 10
 
 func main() {
-<<<<<<< HEAD
-	//We call artists from API
-	wg.Add(1)               //We create a secondary chanel
-	go FastServerStart(&wg) //We run AddNewWord in this chanel because the function is slow
-	wg.Wait()               //We stop the chanel
-	//fmt.Println("Number of artist in a page :")
-	//fmt.Scan(&ArtistForEachPage)
-=======
 
-	FastServerStart() //We run AddNewWord in this chanel because the function is slow
->>>>>>> e55113fda482c84964e3e4cef8287157949b8532
+	FastServerStart()
 	Inisialistion()
 }
 
@@ -123,8 +110,6 @@ func APICall(url string) (data []byte) {
 	return
 }
 
-<<<<<<< HEAD
-=======
 func NbrInPageChange(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/AdminLog.html")) //We link the template and the html file
 	NewNumberOfCards, _ := strconv.Atoi(r.FormValue("mail"))
@@ -153,14 +138,11 @@ func Adminpage(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, Admin)
 }
 
->>>>>>> e55113fda482c84964e3e4cef8287157949b8532
 func MainPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 	tmpl.Execute(w, CardsPagination[0])
 }
 
-<<<<<<< HEAD
-=======
 func ChangePage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 	ToPageNbr, _ := strconv.Atoi(r.FormValue("topage"))
@@ -173,7 +155,6 @@ func ChangePage(w http.ResponseWriter, r *http.Request) {
 
 }
 
->>>>>>> e55113fda482c84964e3e4cef8287157949b8532
 func artistPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
 	index, err := strconv.Atoi(r.FormValue("cardButton"))
@@ -248,18 +229,11 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	return ArtistsToDisplay
 }
 
-<<<<<<< HEAD
-func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
-	defer wg.Done() //We use defer for close wg in the end of the function
-	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
-	json.Unmarshal(data, &Cards.Array)
-=======
 func FastServerStart() { // We enter the DB and the word to add for add the word into the target DB
 	fmt.Println("loading ---------------------------------------------------------------------------------------------------- 0%")
 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
 	json.Unmarshal(data, &Cards.Array)
 	fmt.Println("loading +++++++++++++++++++++++++--------------------------------------------------------------------------- 25%")
->>>>>>> e55113fda482c84964e3e4cef8287157949b8532
 	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
 	json.Unmarshal(data, &LocationEx)
 	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------------- 50%")
