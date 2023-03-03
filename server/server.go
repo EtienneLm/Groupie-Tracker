@@ -111,12 +111,11 @@ func APICall(url string) (data []byte) {
 }
 
 func NbrInPageChange(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./template/AdminLog.html")) //We link the template and the html file
 	NewNumberOfCards, _ := strconv.Atoi(r.FormValue("mail"))
 	NumberOfCards = NewNumberOfCards
 	var TmpValueForCards = Cards.Array
 	CardsPagination = IntoMultiplePages(NewNumberOfCards, TmpValueForCards, 1)
-	tmpl.Execute(w, Admin)
+	MainPage(w, r)
 }
 
 func AdminLog(w http.ResponseWriter, r *http.Request) {

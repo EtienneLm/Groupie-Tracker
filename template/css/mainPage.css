@@ -1,6 +1,7 @@
 body {
   text-align: center;
-  background: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
+  background-image: url("./BackG.jpg");
+  background-position: fixed;
   scroll-behavior: smooth;
 }
 
