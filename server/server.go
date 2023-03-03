@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -26,15 +25,17 @@ var Admin groupietrackers.AdminCheck
 var NumberOfCards int = 10
 
 func main() {
-	s := []string{Cards.Array[0].Name}
-	sort.Strings(s)
-	fmt.Println(s)
-	FastServerStart() //We run AddNewWord in this chanel because the function is slow
-	// for index := range Cards.Array {
-	// 	fmt.Println(index, Cards.Array[index].CreationDate)
 
+	FastServerStart() //We run AddNewWord in this chanel because the function is slow
+	Sort(Cards.Array)
+	// for index := range Cards.Array {
+	// 	test := Cards.Array[index].CreationDate
+	// 	sort.Strings(test)
+	// 	fmt.Println(test)
+	// fmt.Println(index, Cards.Array[index].CreationDate)
 	// }
-	//Inisialistion()
+
+	Inisialistion()
 }
 
 func IntoMultiplePages(NumberOfCards int, Entry []groupietrackers.Artists, toTurnNegative int) []groupietrackers.Cards {
@@ -256,13 +257,33 @@ func FastServerStart() { // We enter the DB and the word to add for add the word
 		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
 	}
 
-	var TmpValueForCards = Cards.Array
+	var TmpValueForCards = Sort(Cards.Array)
 	var NumberOfCardsForFunction = NumberOfCards
 	CardsPagination = IntoMultiplePages(NumberOfCardsForFunction, TmpValueForCards, 1)
 	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 100%")
 }
 
-func SortingRadio(w http.ResponseWriter, r *http.Request) {
-	// var AlphabeticalOrder = groupietrackers.Artists.Name
+// func SortingRadio(w http.ResponseWriter, r *http.Request) {
+// 	// var AlphabeticalOrder = groupietrackers.Artists.Name
 
+// }
+
+func Sort(Entry []groupietrackers.Artists) []groupietrackers.Artists {
+	index := 0
+	lenght := len(Entry)
+
+	for index < lenght-1 {
+		if Entry[index].Name > Entry[index+1].Name {
+			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
+			index = 0
+		} else {
+			index++
+		}
+
+	}
+
+	for _, value := range Cards.Array {
+		fmt.Println(value.Name)
+	}
+	return Entry
 }

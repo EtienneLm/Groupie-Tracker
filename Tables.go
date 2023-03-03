@@ -62,6 +62,11 @@ type AdminCheck struct {
 	IsBadInput  bool
 }
 
+type SortName struct {
+	Id   int
+	Name string
+}
+
 type Cards struct {
 	Array        []Artists
 	ToDisplay    []Artists
