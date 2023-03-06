@@ -228,15 +228,12 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	return ArtistsToDisplay
 }
 
-<<<<<<< HEAD
-=======
 // func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
 // 	defer wg.Done() //We use defer for close wg in the end of the function
 // 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
 // 	json.Unmarshal(data, &Cards.Array)
 // }
 
->>>>>>> main
 func FastServerStart() { // We enter the DB and the word to add for add the word into the target DB
 	fmt.Println("loading ---------------------------------------------------------------------------------------------------- 0%")
 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
