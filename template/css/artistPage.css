@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
+    background-image: url("./BackG.jpg");
     scroll-behavior: smooth;
     margin: 0px;
     display: flex;
@@ -96,8 +96,7 @@ body {
   }
   .Principal{
     width: 93vw;
-    height: 196vh;
-    background-color: rgba(255,255,255,0.5);
+    background-color: transparent ;
     margin-left: 2vw;
     margin-right: 2vw;
     margin-top: 2vh;
@@ -116,7 +115,7 @@ body {
 }
 .leftBarButton{
   background-color: rgba(255,255,255,0.75);
-  border: rgba(255,255,255,0.75) solid 2px;
+  border: transparent solid 2px;
   border-radius: 5px;
   margin-top: 2vh;
   width: 12vw;
