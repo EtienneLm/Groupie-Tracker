@@ -25,7 +25,9 @@ var Admin groupietrackers.AdminCheck
 var NumberOfCards int = 10
 
 func main() {
-	Sort(Cards.Array)
+	Sort1(Cards.Array)
+	Sort2(Cards.Array)
+
 	FastServerStart()
 	Inisialistion()
 }
@@ -87,6 +89,8 @@ func Inisialistion() {
 	http.HandleFunc("/adminLog", AdminLog)
 	http.HandleFunc("/adminpage", Adminpage)
 	http.HandleFunc("/NbrInPageChange", NbrInPageChange)
+	http.HandleFunc("/sortHere", SortingList)
+
 	http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
@@ -254,23 +258,48 @@ func FastServerStart() { // We enter the DB and the word to add for add the word
 		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
 	}
 
-	var TmpValueForCards = Sort(Cards.Array)
+	var TmpValueForCards = Sort1(Cards.Array) // ??? à dupliquer pour Sort2
+
 	var NumberOfCardsForFunction = NumberOfCards
 	CardsPagination = IntoMultiplePages(NumberOfCardsForFunction, TmpValueForCards, 1)
 	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 100%")
 }
 
-// func SortingRadio(w http.ResponseWriter, r *http.Request) {
-// 	// var AlphabeticalOrder = groupietrackers.Artists.Name
+func SortingList(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./template/mainPage.html"))
+	alphabeticalOrder := r.FormValue("sort")
 
-// }
+	// if alphabetical order = true --> return main page
+	fmt.Println(alphabeticalOrder)
+	tmpl.Execute(w, r)
+}
 
-func Sort(Entry []groupietrackers.Artists) []groupietrackers.Artists {
+func Sort1(Entry []groupietrackers.Artists) []groupietrackers.Artists {
 	index := 0
 	lenght := len(Entry)
 
 	for index < lenght-1 {
 		if Entry[index].Name > Entry[index+1].Name {
+			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
+			index = 0
+		} else {
+			index++
+		}
+
+	}
+
+	for _, value := range Cards.Array {
+		fmt.Println(value.Name)
+	}
+	return Entry
+}
+
+func Sort2(Entry []groupietrackers.Artists) []groupietrackers.Artists {
+	index := 0
+	lenght := len(Entry)
+
+	for index < lenght-1 {
+		if Entry[index].Name < Entry[index+1].Name {
 			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
 			index = 0
 		} else {

@@ -320,3 +320,8 @@ body {
   margin-left : 80vw;
   cursor: pointer;
 }
+
+.hiddenButton{
+  background-color: transparent;
+  border-color: transparent;
+}

@@ -11,43 +11,59 @@
     <datalist id="names">
         {{range .Array}}
         <option value="{{.Name}}">
-        {{end}}
-      </datalist>
-    <div class ="navbar">
-        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/ancienlogo.png" width="90%"/></a>
-        <div class="researchBar">
-            <form action="searchName" method="post">
-                <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/styles/loupe.png"/>
+            {{end}}
+        </datalist>
+        <div class ="navbar">
+            <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/ancienlogo.png" width="90%"/></a>
+            <div class="researchBar">
+                <form action="searchName" method="post">
+                    <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/styles/loupe.png"/>
+                </form>
+            </div>
+            <form action="adminLog" method="post">
+                <button  style = "border: transparent; background-color: transparent;"> <img src="http://localhost:8080/styles/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px"> </button>
             </form>
         </div>
-        <form action="adminLog" method="post">
-            <button  style = "border: transparent; background-color: transparent;"> <img src="http://localhost:8080/styles/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px"> </button>
-        </form>
-    </div>
-    
-    
-    <h1 class="title">Bienvenue sur nôtre site !</h1>
-    <div style="display: flex;">
-    <div class="buttonBar">
-        <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
-        <form action="aboutUs" method="post"><button class="aboutUsButton" type="submit">About us</button></form>
-        <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
+        
+        
+        <h1 class="title">Bienvenue sur nôtre site !</h1>
 
-        <form class="sortHere">
-            <fieldset>
-              <legend>Sort the artist as you want !</legend>
-          
-              <input type="radio" id="alphabeticalOrder" name="sort" value="A" checked>
-              <label for="alphabeticalOrder">Alphabetical Order</label><br>
-          
-              <input type="radio" id="reverseAlphabeticalOrder" name="sort" value="R">
-              <label for="reverseAlphabeticalOrder">Reverse Alphabetical Order</label><br>
-    
-              <input type="radio" id="numberOfArtists" name="sort" value="N">
-              <label for="numberOfArtists">Number of Artists</label><br>
-            </fieldset>
-          </form>
-    </div><br>
+        <div style="display: flex;">
+            <div class="buttonBar">
+                <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
+                <form action="aboutUs" method="post"><button class="aboutUsButton" type="submit">About us</button></form>
+                <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
+                
+                
+                <form action="sortHere" method="post" class="sortHere" >
+                    <!-- <button class="hiddenButton"> -->
+                        <select name="sorting" id="choose-sorting">
+                            <option value="" >--Choisissez une option--</option>
+                            <option value="alphabeticalOrder" onchange="sort1">Alphabetical Order</option> 
+                            <option value="reverseAlphabeticalOrder" onchange="">Reverse Alphabetical Order</option>
+                            <option value="numberOfArtists" onchange="">Number of Artists</option>
+                        </select>
+                    <!-- </button> -->
+                </form>
+                
+                
+                <!-- <form class="sortHere" action="sortHere" method="post">
+                    <fieldset>
+                        <legend>Sort the artist as you want !</legend>
+                        
+                        <input type="radio" id="alphabeticalOrder" name="sort" value="A" checked>
+                        <label for="alphabeticalOrder">Alphabetical Order</label><br>
+                        
+                        <input type="radio" id="reverseAlphabeticalOrder" name="sort" value="R">
+                        <label for="reverseAlphabeticalOrder">Reverse Alphabetical Order</label><br>
+                        
+                        <input type="radio" id="numberOfArtists" name="sort" value="N">
+                        <label for="numberOfArtists">Number of Artists</label><br>
+                    </fieldset>
+                </form>
+            --> 
+        </div><br>
+
         <form action="NbrInPageChange" method="post" id="login-form">
             <div class = 'divInput'>
                 <label for="mail" class="label-input"> Number of Artists in a page </label>
@@ -55,6 +71,7 @@
             </div>
         </form>
     </div>
+    
     <div class="allTheCards">
         {{range .Array}}    
         <form action="artistPage" method="post">
@@ -68,21 +85,21 @@
         {{end}} 
     </div>
     <div class="ButtonForChangePage">
-    {{if .NotFirstPage}}
+        {{if .NotFirstPage}}
         <form action="changePage" method="post">
             <button class="previousPage" type="submit" name="topage" value = "{{.PreviousPage}}"><i class="arrow left"></i></button>
         </form> 
-    {{end}}
-    {{if .NotFirstPage}} 
+        {{end}}
+        {{if .NotFirstPage}} 
         {{if .NotLastPage}} <p style="font-size: 1.5vw ; margin-top: 0;">{{.IdPage}}</p>  {{end}}
-    {{end}}
-    {{if .NotLastPage}} 
-    <form action="changePage" method="post">
+        {{end}}
+        {{if .NotLastPage}} 
+        <form action="changePage" method="post">
             <button class="nextPage" type="submit" name="topage" value = "{{.NexPage}}"><i class="arrow right"></i></button>
-    </form>
-    {{end}} 
+        </form>
+        {{end}} 
     </div>
-
-
+    
+    
 </body>
 </html>
