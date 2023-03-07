@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost:8080/styles/artistPage.css">
+    <link rel="stylesheet" href="http://localhost:8080/assets/css/artistPage.css">
+    <link rel="icon" href="http://localhost:8080/assets/img/ancienlogo.png"/>
 
-    <title>Artist Page</title>
+    <title>Page artiste | {{.Name}}</title>
 </head>
 <body>
     <div class="LeftSide">
@@ -27,7 +28,10 @@
             <img src={{.Image}} alt="Illustrattion de du groupe {{.Name}}" class="imgArtist">
             <h1 class="GroupName">{{.Name}}</h1>
         </div>
-        <p>{{.CreationDate}}</p>
+        <div class="date">
+            <h1>Date de création :</h1>
+            <p>{{.CreationDate}}</p>
+        </div>
         <div class="Names">
             <h2>Members :</h2>
             {{range .Members}}
@@ -36,25 +40,20 @@
         </div> 
 
         </div>
-        <div style="display: flex;">
+        <iframe class = "Spotify" style="border-radius:12px;"src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div style="display: flex; align-items: center;">
           <div class="Concert">
             <h1>Concert dates :</h1>
             {{range .Concert}}
             <div>
-                <h2>{{.Location}} :</h2>
-                {{range .Date}}
-                <p>- {{.Date}}</p>
-                {{end}}
-
+                <h2>{{.Date}} - {{.Location}}:</h2>
             </div>
             {{end}}
         </div>
-        <iframe class = "Spotify" style="border-radius:12px;" src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             <div class="map">
-                <iframe width="500" height="400" frameborder="0" src="https://www.bing.com/maps/embed?h=400&w=500&cp=47.218371~-1.553621&lvl=10&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no"></iframe>
+                <iframe width="500" height="400" frameborder="0" src="https://www.bing.com/maps/embed?h=400&w=500&cp={{.X}}~{{.Y}}&lvl=10&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no"></iframe>
                 <a target="_blank" href="https://www.bing.com/maps">Search Concert location</a>
             </div>
-        
     </div>
         </div>
 

@@ -1,12 +1,29 @@
 body {
     text-align: center;
-    background-image: url("./BackG.jpg");
+    background-image: url("../img/BackG.jpg");
     scroll-behavior: smooth;
     margin: 0px;
     display: flex;
   }
+
+  .date {
+    background-color: rgba(255,255,255,0.5);
+    height: 35vh;
+    width: 15vw;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    border-radius: 20px;
+  }
+  .date > h1 {
+    font-size: 4vh;
+  }
+  .date > p {
+    font-size: 7vh;
+  }
+
+
   .map {
-    margin-left: 1vw;
+    margin-left: 20%;
     margin-top: 2vh;
   }
   .map > a {
@@ -17,15 +34,17 @@ body {
     font-size: large;
     
   }
+  
   .GroupName{
+    margin-top: 10vh;
     font-size: 4vw;
     margin-left: 2vw;
   }
 
   .Spotify {
-    max-width: 45vw;
+    width: 80vw;
     margin-top: 2vh;
-    margin-left: 1vh;
+    margin-left: 1vw;
   }
 
   .Concert {
@@ -33,7 +52,7 @@ body {
     margin-left: 1vw;
     margin-right: 1vw;
     margin-top: 2vh;
-    max-width: 20vw;
+    max-width: 50vw;
     padding-left: 1vw;
     padding-right: 1vw;
     padding-top: 2vh;
@@ -70,7 +89,6 @@ body {
 
   .Info{
     display: flex;
-    align-items: center;
     background-color: rgba(255,255,255,0.5);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -78,7 +96,6 @@ body {
     margin-left: 1vw;
     min-width: 40vw;
     max-height: 45vh;
-    padding-right: 2vw;
   }
   
   .imgArtist{
