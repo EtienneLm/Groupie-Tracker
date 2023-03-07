@@ -8,15 +8,31 @@
     <title>Concert Page</title>
 </head>
 <body>
+    <datalist id="names">
+        {{range .Array}}
+        <option value="{{.Name}}">
+        {{end}}
+      </datalist>
 
     <div class ="navbar">
-        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/logo.png" width="90%"/></a>
+        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/logoIA.png" width="90%"/></a>
         <div class="researchBar">
             <img src=""/>
             <form action="searchName" method="post">
                 <input class="search" type="text" name="searchName"/>
             </form>
         </div>
+    </div>
+    
+    <div class = "Concert"> 
+        {{range .Array}}
+        <a class="title">Concsqdqsdqsert</a>
+        <img src = {{.Image}} class="image"></img><br>
+        <div class="container">
+            <h2>{{.Date}}</h2>
+        </div>
+            
+        {{end}}
     </div>
 
 </body>

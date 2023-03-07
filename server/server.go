@@ -152,7 +152,6 @@ func ChangePage(w http.ResponseWriter, r *http.Request) {
 	} else {
 		tmpl.Execute(w, CardsPagination[ToPageNbr])
 	}
-
 }
 
 func artistPage(w http.ResponseWriter, r *http.Request) {
@@ -165,7 +164,6 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 		ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
 		tmpl.Execute(w, ArtistsToDisplay)
 	}
-
 }
 
 func searchName(w http.ResponseWriter, r *http.Request) {
@@ -188,7 +186,8 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 
 func concertPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/concertPage.html"))
-	tmpl.Execute(w, r)
+	tmpl.Execute(w, CardsPagination[0])
+
 }
 
 func aboutUsPage(w http.ResponseWriter, r *http.Request) {
