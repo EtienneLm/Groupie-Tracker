@@ -36,15 +36,17 @@
                 
                 
                 <form action="sortHere" method="post" class="sortHere" >
-                    <!-- <button class="hiddenButton"> -->
                         <select name="sorting" id="choose-sorting">
-                            <option value="" >--Choisissez une option--</option>
-                            <option value="alphabeticalOrder" onchange="sort1">Alphabetical Order</option> 
-                            <option value="reverseAlphabeticalOrder" onchange="">Reverse Alphabetical Order</option>
-                            <option value="numberOfArtists" onchange="">Number of Artists</option>
+                            <option value="alphabeticalOrder">--Choisissez une option--</option>
+                            <option value="alphabeticalOrder" name="sort1">Alphabetical Order</option> 
+                            <option value="reverseAlphabeticalOrder" name="sort2">Reverse Alphabetical Order</option>
+                            <option value="numberOfArtists" name="sort3">Number of Artists</option>
                         </select>
-                    <!-- </button> -->
+                    <button class="hiddenButton">
+                        valider
+                    </button>
                 </form>
+
                 
                 
                 <!-- <form class="sortHere" action="sortHere" method="post">

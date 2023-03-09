@@ -25,8 +25,8 @@ var Admin groupietrackers.AdminCheck
 var NumberOfCards int = 10
 
 func main() {
-	Sort1(Cards.Array)
-	Sort2(Cards.Array)
+	SortByAlphabetical(Cards.Array)
+	SortByReverseAlphabetical(Cards.Array)
 
 	FastServerStart()
 	Inisialistion()
@@ -82,8 +82,6 @@ func Inisialistion() {
 	http.HandleFunc("/", MainPage)                               //We create the main page , the only function who use a template
 	http.HandleFunc("/artistPage", artistPage)
 	http.HandleFunc("/searchName", searchName)
-	http.HandleFunc("/concert", concertPage)
-	http.HandleFunc("/aboutUs", aboutUsPage)
 	http.HandleFunc("/contactUs", contactUsPage)
 	http.HandleFunc("/changePage", ChangePage)
 	http.HandleFunc("/adminLog", AdminLog)
@@ -258,23 +256,30 @@ func FastServerStart() { // We enter the DB and the word to add for add the word
 		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
 	}
 
-	var TmpValueForCards = Sort1(Cards.Array) // ??? à dupliquer pour Sort2
-
 	var NumberOfCardsForFunction = NumberOfCards
-	CardsPagination = IntoMultiplePages(NumberOfCardsForFunction, TmpValueForCards, 1)
+	CardsPagination = IntoMultiplePages(NumberOfCardsForFunction, Cards.Array, 1)
 	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 100%")
 }
 
 func SortingList(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./template/mainPage.html"))
-	alphabeticalOrder := r.FormValue("sort")
+	alphabeticalOrder := r.FormValue("sorting") // vas chercher sorting dans mainPage.html
+	// reverseAlphabeticalOrder := r.FormValue("sorting")
+	// numberOfArtists := r.FormValue("sorting")
+
+	// alphabeticalOrder := SortByAlphabetical()
+
+	// Entry :=
+	if Entry == alphabeticalOrder {
+		SortByAlphabetical()
+	}
 
 	// if alphabetical order = true --> return main page
 	fmt.Println(alphabeticalOrder)
-	tmpl.Execute(w, r)
+	// SortByReverseAlphabetical(Cards.Array)
+	MainPage(w, r)
 }
 
-func Sort1(Entry []groupietrackers.Artists) []groupietrackers.Artists {
+func SortByAlphabetical(Entry []groupietrackers.Artists) {
 	index := 0
 	lenght := len(Entry)
 
@@ -287,14 +292,11 @@ func Sort1(Entry []groupietrackers.Artists) []groupietrackers.Artists {
 		}
 
 	}
-
-	for _, value := range Cards.Array {
-		fmt.Println(value.Name)
-	}
-	return Entry
+	Cards.Array = Entry
+	IntoMultiplePages(NumberOfCards, Entry, 1)
 }
 
-func Sort2(Entry []groupietrackers.Artists) []groupietrackers.Artists {
+func SortByReverseAlphabetical(Entry []groupietrackers.Artists) {
 	index := 0
 	lenght := len(Entry)
 
@@ -307,9 +309,11 @@ func Sort2(Entry []groupietrackers.Artists) []groupietrackers.Artists {
 		}
 
 	}
+	Cards.Array = Entry
+	IntoMultiplePages(NumberOfCards, Entry, 1)
+}
 
-	for _, value := range Cards.Array {
-		fmt.Println(value.Name)
-	}
-	return Entry
+func SortByNumberOfArtist(Entry []groupietrackers.Member) {
+	index := 0
+
 }
