@@ -29,6 +29,9 @@ func DateCompare(date1 string, date2 string) bool {
 	 */
 	year1, _ := strconv.Atoi(date1[6:10])
 	year2, _ := strconv.Atoi(date2[6:10])
+	if year1 == year2 {
+		return false
+	}
 	if year1 < year2 {
 		return false
 	} else if year1 == year2 {

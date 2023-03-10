@@ -10,52 +10,74 @@
     <title>Page artiste | {{.Name}}</title>
 </head>
 <body>
-    <div class="LeftSide">
-        <input type="checkbox" id="burger-shower" class="burger-shower">
-        <label for="burger-shower" class="treeBar">
-            <div class="first-bar"></div>
-            <div class="second-bar"></div>
-            <div class="third-bar"></div>
-        </label>
-        <div class="Left-Bar">
+    <div id ="LeftSide" class="LeftSide">
+        <div id = "LeftSideBnt" class="treeBar">
+            <div class="first-bar" id = "first-bar"></div>
+            <div class="second-bar" id = "second-bar"></div>
+            <div class="third-bar" id = "third-bar"></div>
+        </div>
+
+        <div class="leftBarButtons" id = "leftBarButtons">
             <a href ="http://localhost:8080" ><button class="leftBarButton">Menu</button></a>
         </div>
     </div>
     
-    <div class="Principal">
-        <div style="display: flex;">
-          <div class="Info">
-            <img src={{.Image}} alt="Illustrattion de du groupe {{.Name}}" class="imgArtist">
-            <h1 class="GroupName">{{.Name}}</h1>
+    <div class="Principal" id = "Principal">
+        <div style="display: flex; align-items: center; background-color: #CA20FE;">
+        <img src={{.Image}} alt="Illustrattion du groupe {{.Name}}" class="imgArtist">
+        <h1 class="GroupeName">{{.Name}}</h1>
         </div>
-        <div class="date">
-            <h1>Date de création :</h1>
-            <p>{{.CreationDate}}</p>
+        <div class="CreationDate">
+            <p class="preDate">Date de création : </p>
+            <p class="Date">{{.CreationDate}}</p>
         </div>
-        <div class="Names">
-            <h2>Members :</h2>
-            {{range .Members}}
-            <p>- {{.Member}}</p>
-            {{end}}
-        </div> 
-
-        </div>
-        <iframe class = "Spotify" style="border-radius:12px;"src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        <div style="display: flex; align-items: center;">
-          <div class="Concert">
-            <h1>Concert dates :</h1>
-            {{range .Concert}}
-            <div>
-                <h2>{{.Date}} - {{.Location}}:</h2>
+        <div class="membersBar">
+            <p>Concerts</p> 
+            <div id = "ConcertBnt" class="arrow bottom"></div>
+         </div>
+         <div id="Concerts">
+            <div style="display: flex; flex-direction: column;">
+                {{range .Concert}}
+                <form action="changeMap">
+                    <button value="{{.Id}}" name="ChangeMap" class="Concert">
+                        <h2 style="margin-right: 1vw;">{{.Date}}</h2>
+                        <h2>{{.Location}}</h2>
+                    </button>
+                </form>
+                {{end}}
             </div>
-            {{end}}
-        </div>
             <div class="map">
-                <iframe width="500" height="400" frameborder="0" src="https://www.bing.com/maps/embed?h=400&w=500&cp={{.X}}~{{.Y}}&lvl=10&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no"></iframe>
-                <a target="_blank" href="https://www.bing.com/maps">Search Concert location</a>
-            </div>
-    </div>
+                <iframe class = "Map" frameborder="0" src="https://www.bing.com/maps/embed?h=400&w=500&cp={{.X}}~{{.Y}}&lvl=10&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no"></iframe>
+            </div> 
+         </div>
+        <div class="membersBar">
+           <p>Members</p> 
+           <div id = "Name" class="arrow right"></div>
         </div>
-
+        <div class="Names" id = "Names">
+            {{range .Members}}
+                <p>{{.Member}}</p>
+            {{end}} 
+        </div>
+        <div class="membersBar" id = "SpotifyBar">
+            <p>Spotify</p> 
+            <div id = "SpotifyButton" class="arrow right">
+        </div>
+        </div>
+        <div style="background-color : #2A0934 ;   border-bottom: #C91BFE 1px solid;" id = "Spotify">
+            <iframe 
+            class = "Spotify" 
+            style="border-radius:12px;"
+            src="https://open.spotify.com/embed/artist/{{.SpotifyId}}?utm_source=generator&theme=0"
+            width="100%" 
+            height="352" 
+            frameBorder="0" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+            </iframe>
+        </div>
+    </div>
+    <script src="http://localhost:8080/assets/JS/artistPage.js"></script>
 </body>
 </html> 

@@ -22,13 +22,13 @@ var CardsPagination []groupietrackers.Cards
 var SortedCardsPagination []groupietrackers.Cards
 var Admin groupietrackers.AdminCheck
 var NumberOfCards int = 10
+var ArtistsToDisplay groupietrackers.ArtistsToDisplay
 var wg sync.WaitGroup
 
 func main() {
 	/*
 	* We call the API and we unmarshal the data
 	 */
-
 	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
 	json.Unmarshal(data, &Cards.Array)
 
@@ -56,6 +56,7 @@ func Inisialistion() {
 	http.HandleFunc("/adminLog", AdminLog)
 	http.HandleFunc("/adminpage", Adminpage)
 	http.HandleFunc("/NbrInPageChange", NbrInPageChange)
+	http.HandleFunc("/changeMap", MapUpDate)
 	Port := "8080"                                          //We choose port 8080
 	fmt.Println("The serveur start on port " + Port + " 🔥") //We print this when the server is online
 	fmt.Println("http://localhost:8080/")
@@ -89,13 +90,29 @@ func NbrInPageChange(w http.ResponseWriter, r *http.Request) {
 	/*
 	* Function who change the number of cards in the main page
 	 */
-	NewNumberOfCards, _ := strconv.Atoi(r.FormValue("mail"))
-	NumberOfCards = NewNumberOfCards
-	var TmpValueForCards = Cards.Array
-	CardsPagination = IntoMultiplePages(NewNumberOfCards, TmpValueForCards, 1)
-	MainPage(w, r)
+	NewNumberOfCards, err := strconv.Atoi(r.FormValue("mail"))
+	if err != nil {
+		NumberOfCards = NewNumberOfCards
+		var TmpValueForCards = Cards.Array
+		CardsPagination = IntoMultiplePages(NewNumberOfCards, TmpValueForCards, 1)
+		MainPage(w, r)
+	} else {
+		MainPage(w, r)
+	}
 }
 
+func MapUpDate(w http.ResponseWriter, r *http.Request) {
+	if ArtistsToDisplay.Concert != nil {
+		tmpl := template.Must(template.ParseFiles("./template/artistPage.html")) //change the html
+		IdMap, _ := strconv.Atoi(r.FormValue("ChangeMap"))
+		Output := Map(ArtistsToDisplay.Concert[IdMap].Location)
+		ArtistsToDisplay.X, ArtistsToDisplay.Y = Output[0], Output[1]
+		tmpl.Execute(w, ArtistsToDisplay)
+	} else {
+		MainPage(w, r)
+	}
+
+}
 func AdminLog(w http.ResponseWriter, r *http.Request) {
 	/*
 	* Function of redirection to the admin page
@@ -154,12 +171,12 @@ func artistPage(w http.ResponseWriter, r *http.Request) {
 		MainPage(w, r)
 	} else {
 		SelectedCard = index - 1
-		ArtistsToDisplay := DataToFunctionnalData(SelectedCard)
+		ArtistsToDisplay = DataToFunctionnalData(SelectedCard)
 		Output := Map(ArtistsToDisplay.Concert[0].Location)
 		ArtistsToDisplay.X, ArtistsToDisplay.Y = Output[0], Output[1]
+		fmt.Println(ArtistsToDisplay.Name, "loaded")
 		tmpl.Execute(w, ArtistsToDisplay)
 	}
-
 }
 
 func searchName(w http.ResponseWriter, r *http.Request) {
@@ -242,6 +259,10 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 			index++
 		}
 	}
+	//* we add id in map for the map change
+	for index := range ArtistsToDisplay.Concert {
+		ArtistsToDisplay.Concert[index].Id = index
+	}
 	return ArtistsToDisplay
 }
 
@@ -275,13 +296,13 @@ func Map(address string) []float64 {
 	/*
 	* This function is used to extract GPS coordinates from an address , for the map on artist page and concert page
 	 */
-	var test groupietrackers.ForBingAPI
+	var Map groupietrackers.ForBingAPI
 	apiKey := "AtsZ2m7fUBuOM17Nm1fpRCB21Xx-qC55dPhOb5Y3HWQbTXNVQR9___IDm6Fl5DRf" // Clé API de Bing Maps
 	//
 	url := fmt.Sprintf("https://dev.virtualearth.net/REST/v1/Locations?q=%s&key=%s", address, apiKey)
 	data := APICall(url)
-	json.Unmarshal(data, &test)
-	return test.ResourceSets[0].Resources[0].Point.Coordinates
+	json.Unmarshal(data, &Map)
+	return Map.ResourceSets[0].Resources[0].Point.Coordinates
 }
 
 func IntoMultiplePages(NumberOfCards int, Entry []groupietrackers.Artists, toTurnNegative int) []groupietrackers.Cards {
@@ -293,6 +314,9 @@ func IntoMultiplePages(NumberOfCards int, Entry []groupietrackers.Artists, toTur
 	* and with a gap of 1 in the index ( 0 will become -1 )
 	* because if we not do that , the id of 0 will be missunderstood
 	 */
+	if NumberOfCards == len(Entry) {
+		NumberOfCards++
+	}
 	var CardPagiantion []groupietrackers.Cards
 	var TmpCardsArray groupietrackers.Cards
 	TmpCardsArray.NotLastPage = true

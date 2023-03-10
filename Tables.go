@@ -41,21 +41,23 @@ type Artists struct {
 //* This struct is used to display the data on artist page
 //* X and Y are the coordinates of the next concert of the artists
 type ArtistsToDisplay struct {
-	Id           int
-	Image        string
-	Name         string
-	Members      []Member
-	CreationDate int
-	FirstAlbum   string
-	Concert      []Concert
-	SpotifyId    string
-	X            float64
-	Y            float64
+	Id              int
+	Image           string
+	Name            string
+	Members         []Member
+	CreationDate    int
+	FirstAlbum      string
+	Concert         []Concert
+	SpotifyId       string
+	SelectedConcert Concert
+	X               float64
+	Y               float64
 }
 type Member struct {
 	Member string
 }
 type Concert struct {
+	Id       int
 	Location string
 	Date     string
 }
