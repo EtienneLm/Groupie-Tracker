@@ -11,35 +11,40 @@ body {
 
   .GroupeName {
     margin-left: 10vw;
-    font-size: 6vw;
+    font-size: 5vw;
     color : #2B0935 ;
     font-style: oblique;
   }
-  .Date {
-    font-size: 3vw;
-    background-color: #F9E5FF;
+  .information-Element {
+    font-size: 1.8vw;
+    color: #C91BFE;
+    border-right: 3px solid #2B0935 ;
     padding-right: 2vw;
     padding-left: 2vw;
-    border-radius: 20px;
-    margin-right: 50vw;
+    font-style:oblique;
   }
-  .CreationDate{
+  .information-Box{
     border-bottom: #C91BFE 1px solid;
     display: flex;
     align-items: center;
-    background-color: #2B0935; 
-    justify-content: space-between;
+    background-color: #F9E5FF; 
+    justify-content: start;
+    flex-wrap: wrap;
   }
-  .preDate{
-    width: 25vw;
-    height: 6vh;
-    font-size: 3vw;
-    color: #C91BFE;
+  .information-Inside-Box {
+    display: flex;
+    align-items: center;
+  }
+  .information-Title{
+    margin-left: 5vw;
+    width: fit-content;
+    font-size: 2vw;
+    color: #2B0935;
   }
 
   .Map {
-    width: 500px;
-    height: 400px;
+    max-width: 500px;
+    max-height: 400px;
   }
 
   .map {
@@ -51,8 +56,8 @@ body {
   }
 
   .imgArtist{
-    max-width: 40vh;
-    max-height: 40vh;
+    max-width: 10vw;
+    max-height: 10vw;
   }
 
   .LeftSide{
@@ -231,7 +236,7 @@ body {
 
 .membersBar > p {
   color : #2A0934;
-  font-size: 3vw;
+  font-size: 1.8vw;
   margin-left: 2vw;
   margin-right: 2vw;
 }

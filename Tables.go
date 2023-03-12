@@ -35,7 +35,6 @@ type Artists struct {
 	Locations    []string
 	ConcertDates []string
 	Relations    map[string][]string
-	SpotifyId    string
 }
 
 //* This struct is used to display the data on artist page
@@ -48,10 +47,12 @@ type ArtistsToDisplay struct {
 	CreationDate    int
 	FirstAlbum      string
 	Concert         []Concert
-	SpotifyId       string
 	SelectedConcert Concert
 	X               float64
 	Y               float64
+	SpotifyId       string
+	Genre string
+	Followers int 
 }
 type Member struct {
 	Member string

@@ -23,20 +23,19 @@ var SortedCardsPagination []groupietrackers.Cards
 var Admin groupietrackers.AdminCheck
 var NumberOfCards int = 10
 var ArtistsToDisplay groupietrackers.ArtistsToDisplay
+var SpotifyToken string
 var wg sync.WaitGroup
 
 func main() {
 	/*
 	* We call the API and we unmarshal the data
 	 */
-	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
-	json.Unmarshal(data, &Cards.Array)
-
+	
+	APICall("https://groupietrackers.herokuapp.com/api/artists" , &Cards.Array)
 	wg.Add(1) //*We create a secondary chanel
 	go FastServerStart()
 	Inisialistion()
 	wg.Wait()
-
 }
 
 func Inisialistion() {
@@ -63,7 +62,7 @@ func Inisialistion() {
 	http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
-func APICall(url string) (data []byte) {
+func APICall(url string , Dataform interface{}) {
 	/*
 	* Function who call the API and return the data
 	 */
@@ -78,12 +77,13 @@ func APICall(url string) (data []byte) {
 		os.Exit(0)
 	}
 	defer res.Body.Close()
-	data, err = ioutil.ReadAll(res.Body)
+	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	return
+
+	json.Unmarshal(data, Dataform)
 }
 
 func NbrInPageChange(w http.ResponseWriter, r *http.Request) {
@@ -226,12 +226,17 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	* This function is called when we clic on a artist card , we make a new struct with
 	* the data of the artist for golang template because we can't use the struct of the json file
 	 */
+	 //* We call spotify api 
+	groupietrackers.GetArtist( Cards.Array[SelectedCard].Name ,&SpotifyToken)
 	var ArtistsToDisplay groupietrackers.ArtistsToDisplay
 	ArtistsToDisplay.Id = Cards.Array[SelectedCard].Id
 	ArtistsToDisplay.Image = Cards.Array[SelectedCard].Image
 	ArtistsToDisplay.Name = Cards.Array[SelectedCard].Name
-	ArtistsToDisplay.SpotifyId = Cards.Array[SelectedCard].SpotifyId
 	ArtistsToDisplay.CreationDate = Cards.Array[SelectedCard].CreationDate
+	ArtistsToDisplay.SpotifyId = groupietrackers.SpotifyInfo.Artists.Items[0].Id
+	ArtistsToDisplay.Genre = groupietrackers.SpotifyInfo.Artists.Items[0].Genres[0]
+	ArtistsToDisplay.Followers = groupietrackers.SpotifyInfo.Artists.Items[0].Followers.Total
+
 	//* We make a new struct for the members
 	for _, value := range Cards.Array[SelectedCard].Members {
 		toAppend := new(groupietrackers.Member)
@@ -271,15 +276,12 @@ func FastServerStart() {
 	* We call the function to get the data from the api in a secondary channel for run the server faster
 	* We open SB/Spotify.txt to get the spotify id of the artist
 	 */
-	groupietrackers.SpotifyId = groupietrackers.ArrayInit("DB/Spotify.txt")
-	data := APICall("https://groupietrackers.herokuapp.com/api/locations")
-	json.Unmarshal(data, &LocationEx)
-	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
-	json.Unmarshal(data, &DatesEx)
-	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
-	json.Unmarshal(data, &RelationEx)
+
+	APICall("https://groupietrackers.herokuapp.com/api/locations" , &LocationEx)
+	APICall("https://groupietrackers.herokuapp.com/api/dates" , &DatesEx)
+	APICall("https://groupietrackers.herokuapp.com/api/relation" , &RelationEx)
+
 	for index := range Cards.Array {
-		Cards.Array[index].SpotifyId = groupietrackers.SpotifyId[index]
 		Cards.Array[index].Locations = LocationEx.Index[index].Locations
 		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
 		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
@@ -300,8 +302,7 @@ func Map(address string) []float64 {
 	apiKey := "AtsZ2m7fUBuOM17Nm1fpRCB21Xx-qC55dPhOb5Y3HWQbTXNVQR9___IDm6Fl5DRf" // Clé API de Bing Maps
 	//
 	url := fmt.Sprintf("https://dev.virtualearth.net/REST/v1/Locations?q=%s&key=%s", address, apiKey)
-	data := APICall(url)
-	json.Unmarshal(data, &Map)
+	APICall(url, &Map)
 	return Map.ResourceSets[0].Resources[0].Point.Coordinates
 }
 
