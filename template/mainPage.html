@@ -4,37 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost:8080/styles/mainPage.css">
-    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="http://localhost:8080/assets/css/mainPage.css">
+    <title> Groupie Tracker</title>
 </head>
 <body>
     <datalist id="names">
-        {{range .Array}}
+        {{range .ForReacherchBar}}
         <option value="{{.Name}}">
         {{end}}
       </datalist>
     <div class ="navbar">
-        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/ancienlogo.png" width="90%"/></a>
+        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a>
         <div class="researchBar">
             <form action="searchName" method="post">
-                <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/styles/loupe.png" />
-               
+                <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/assets/img/loupe.png"/>
             </form>
         </div>
         <form action="adminLog" method="post">
-            <button  style = "border: transparent; background-color: transparent;"> <img src="http://localhost:8080/styles/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px"> </button>
+            <button  style = "border: transparent; background-color: transparent;"> <img src="http://localhost:8080/assets/img/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px"> </button>
         </form>
     </div>
-    
-    
-    <h1 class="title">Bienvenue sur nôtre site !</h1>
 
+    <h1 class="title">Welcome on our web site</h1>
     <div class="buttonBar">
         <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
         <form action="aboutUs" method="post"><button class="aboutUsButton" type="submit">About us</button></form>
         <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
-    </div><br>
-
+    </div>
+    <div class="buttonBar" style="margin-top: 5vh; margin-bottom: 5vh;">
+        <form action="NbrInPageChange" method="post" id="login-form">
+                <div class = 'divInput'>
+                    <label for="nbrOfCard" class="label-input"> Number of Artists in a page </label>
+                    <input type="text" class="inputText" name = "mail" id = "nbrOfCard" placeholder="Enter Number">
+                </div>
+            </form>
+        </div>
     <div class="allTheCards">
         {{range .Array}}    
         <form action="artistPage" method="post">
@@ -53,8 +57,8 @@
             <button class="previousPage" type="submit" name="topage" value = "{{.PreviousPage}}"><i class="arrow left"></i></button>
         </form> 
     {{end}}
-    {{if .IsCardIn}} 
-    <p style="font-size: 1.5vw ; margin-top: 0;">{{.IdPage}}</p>
+    {{if .NotFirstPage}} 
+        {{if .NotLastPage}} <p style="font-size: 1.5vw ; margin-top: 0;">{{.IdPage}}</p>  {{end}}
     {{end}}
     {{if .NotLastPage}} 
     <form action="changePage" method="post">
@@ -62,6 +66,5 @@
     </form>
     {{end}} 
     </div>
-
 </body>
 </html>
