@@ -24,14 +24,9 @@
         </div>
     </div>
     {{if .IsConnected}} 
-    <form action="NbrInPageChange" method="post" id="login-form">
-        <div class = 'divInput'>
-            <label for="mail" class="label-input"> Number of Artists in a page </label>
-            <input type="text" class="inputText" name = "mail" id = "mail" placeholder="Enter Number">
-        </div>
-        <button> Save </button>
+    <form action="reloadAPI" method="post" id="login-form">
+        <button> Mettre à jour la base de donner </button>
     </form>
-    <form action="reloadAPI"></form>
      {{else}} 
     <form action="adminpage" method="post" id="login-form">
         <div class = 'divInput'>

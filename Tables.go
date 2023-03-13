@@ -10,6 +10,11 @@ type ExtractDates struct {
 type ExtractRelation struct {
 	Index []Relations
 }
+
+var LocationEx ExtractLocation
+var DatesEx ExtractDates
+var RelationEx ExtractRelation
+
 type Relations struct {
 	Id             int
 	DatesLocations map[string][]string
@@ -63,6 +68,8 @@ type Concert struct {
 	Date     string
 }
 
+
+var Admin AdminCheck
 type AdminCheck struct {
 	IsConnected bool
 	IsBadInput  bool

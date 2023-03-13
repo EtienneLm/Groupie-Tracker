@@ -46,6 +46,7 @@ func Token(SpotifyToken *string) {
 	req.Header.Set("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(clientID+":"+clientSecret)))
 
 	client := &http.Client{}
+
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("Request failed : Spotify.go  | line : 32")
@@ -80,23 +81,7 @@ func RemoveSpace(entry string) string {
 func GetArtist(Artists string, SpotifyToken *string) {
 	Artists = RemoveSpace(Artists)
 	url := "https://api.spotify.com/v1/search?query=artist%3A" + Artists + "&type=artist&locale=fr%2Cfr-FR%3Bq%3D0.8%2Cen-US%3Bq%3D0.5%2Cen%3Bq%3D0.3&offset=0&limit=1&access_token=" + *SpotifyToken
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(0)
-	}
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(0)
-	}
-	defer res.Body.Close()
-	data, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(0)
-	}
-	json.Unmarshal(data, &SpotifyInfo)
+	APICall(url , &SpotifyInfo)
 	if SpotifyInfo.Error.Status == 401 {
 		SpotifyInfo.Error.Status = 0
 		Token(SpotifyToken)
