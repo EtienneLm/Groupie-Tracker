@@ -25,13 +25,15 @@ var NumberOfCards int = 10
 var ArtistsToDisplay groupietrackers.ArtistsToDisplay
 var SpotifyToken string
 var wg sync.WaitGroup
+var AdminMail string = "admin"
+var AdminPassword string = "admin"
 
 func main() {
 	/*
 	* We call the API and we unmarshal the data
 	 */
-	
-	APICall("https://groupietrackers.herokuapp.com/api/artists" , &Cards.Array)
+
+	APICall("https://groupietrackers.herokuapp.com/api/artists", &Cards.Array)
 	wg.Add(1) //*We create a secondary chanel
 	go FastServerStart()
 	Inisialistion()
@@ -56,13 +58,14 @@ func Inisialistion() {
 	http.HandleFunc("/adminpage", Adminpage)
 	http.HandleFunc("/NbrInPageChange", NbrInPageChange)
 	http.HandleFunc("/changeMap", MapUpDate)
+	http.HandleFunc("/reloadAPI", ReloadAPI)
 	Port := "8080"                                          //We choose port 8080
 	fmt.Println("The serveur start on port " + Port + " 🔥") //We print this when the server is online
 	fmt.Println("http://localhost:8080/")
 	http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
-func APICall(url string , Dataform interface{}) {
+func APICall(url string, Dataform interface{}) {
 	/*
 	* Function who call the API and return the data
 	 */
@@ -86,12 +89,21 @@ func APICall(url string , Dataform interface{}) {
 	json.Unmarshal(data, Dataform)
 }
 
+func ReloadAPI(w http.ResponseWriter, r *http.Request) {
+	/*
+	* Function who reload information from the api
+	 */
+	APICall("https://groupietrackers.herokuapp.com/api/artists", &Cards.Array)
+	FastServerStart()
+	Adminpage(w, r)
+}
+
 func NbrInPageChange(w http.ResponseWriter, r *http.Request) {
 	/*
 	* Function who change the number of cards in the main page
 	 */
 	NewNumberOfCards, err := strconv.Atoi(r.FormValue("mail"))
-	if err != nil {
+	if err == nil {
 		NumberOfCards = NewNumberOfCards
 		var TmpValueForCards = Cards.Array
 		CardsPagination = IntoMultiplePages(NewNumberOfCards, TmpValueForCards, 1)
@@ -128,7 +140,7 @@ func Adminpage(w http.ResponseWriter, r *http.Request) {
 	* Function who check if the admin is connected and who check the password and the mail
 	 */
 	tmpl := template.Must(template.ParseFiles("./template/AdminLog.html")) //We link the template and the html file
-	if groupietrackers.AdminMail == r.FormValue("mail") && groupietrackers.AdminPassword == r.FormValue("psw") || Admin.IsConnected == true {
+	if AdminMail == r.FormValue("mail") && AdminPassword == r.FormValue("psw") || Admin.IsConnected == true {
 		Admin.IsConnected = true
 		Admin.IsBadInput = false
 	} else {
@@ -226,8 +238,8 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	* This function is called when we clic on a artist card , we make a new struct with
 	* the data of the artist for golang template because we can't use the struct of the json file
 	 */
-	 //* We call spotify api 
-	groupietrackers.GetArtist( Cards.Array[SelectedCard].Name ,&SpotifyToken)
+	//* We call spotify api
+	groupietrackers.GetArtist(Cards.Array[SelectedCard].Name, &SpotifyToken)
 	var ArtistsToDisplay groupietrackers.ArtistsToDisplay
 	ArtistsToDisplay.Id = Cards.Array[SelectedCard].Id
 	ArtistsToDisplay.Image = Cards.Array[SelectedCard].Image
@@ -277,9 +289,9 @@ func FastServerStart() {
 	* We open SB/Spotify.txt to get the spotify id of the artist
 	 */
 
-	APICall("https://groupietrackers.herokuapp.com/api/locations" , &LocationEx)
-	APICall("https://groupietrackers.herokuapp.com/api/dates" , &DatesEx)
-	APICall("https://groupietrackers.herokuapp.com/api/relation" , &RelationEx)
+	APICall("https://groupietrackers.herokuapp.com/api/locations", &LocationEx)
+	APICall("https://groupietrackers.herokuapp.com/api/dates", &DatesEx)
+	APICall("https://groupietrackers.herokuapp.com/api/relation", &RelationEx)
 
 	for index := range Cards.Array {
 		Cards.Array[index].Locations = LocationEx.Index[index].Locations

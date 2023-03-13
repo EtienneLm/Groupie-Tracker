@@ -49,7 +49,7 @@
          <div id="Concerts">
             <div style="display: flex; flex-direction: column;">
                 {{range .Concert}}
-                <form action="changeMap">
+                <form action="changeMap" method="post">
                     <button value="{{.Id}}" name="ChangeMap" class="Concert">
                         <h2 style="margin-right: 1vw;">{{.Date}}</h2>
                         <h2>{{.Location}}</h2>
