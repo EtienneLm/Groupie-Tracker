@@ -245,7 +245,7 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 			break
 		}
 	}
-
+	//* We fix the name of the artist for the spotify api
 	switch Cards.Array[IdArstist].Name {
 	case "ACDC":
 		groupietrackers.GetArtist("AC/DC", &SpotifyToken)
