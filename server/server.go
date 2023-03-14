@@ -1,22 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"groupietrackers"
 	"html/template"
 	"net/http"
 	"strconv"
 	"strings"
 	"sync"
-	"fmt"
 )
 
-var Cards groupietrackers.Cards //* All the data 
+var Cards groupietrackers.Cards //* All the data
 
-var CardsPagination []groupietrackers.Cards	//* Use in pagination in main page
-var SortedCardsPagination []groupietrackers.Cards //* Use in pagination when search bar used 
+var CardsPagination []groupietrackers.Cards       //* Use in pagination in main page
+var SortedCardsPagination []groupietrackers.Cards //* Use in pagination when search bar used
 
-var SelectedCard int //* Use to communicate the chosen cards id , we can't use navigate like in JSX 
-var NumberOfCards int = 10 //* The number of cards in page the server start 
+var SelectedCard int       //* Use to communicate the chosen cards id , we can't use navigate like in JSX
+var NumberOfCards int = 10 //* The number of cards in page the server start
 
 var ArtistsToDisplay groupietrackers.ArtistsToDisplay //*
 
@@ -26,15 +26,12 @@ var AdminMail string = "admin"
 var AdminPassword string = "admin"
 
 func main() {
-<<<<<<< HEAD
-	SortByAlphabetical(Cards.Array)
-	SortByReverseAlphabetical(Cards.Array)
-=======
+	// SortByAlphabetical(Cards.Array)
+	// SortByReverseAlphabetical(Cards.Array)
 	/*
-	* We call the APICall to extract artists for the main page  
+	* We call the APICall to extract artists for the main page
 	 */
 	var wg sync.WaitGroup
->>>>>>> main
 
 	groupietrackers.APICall("https://groupietrackers.herokuapp.com/api/artists", &Cards.Array)
 	wg.Add(1) //*We create a secondary chanel
@@ -58,16 +55,13 @@ func Inisialistion() {
 	http.HandleFunc("/adminLog", AdminLog)
 	http.HandleFunc("/adminpage", Adminpage)
 	http.HandleFunc("/NbrInPageChange", NbrInPageChange)
-<<<<<<< HEAD
-	http.HandleFunc("/sortHere", SortingList)
+	// http.HandleFunc("/sortHere", SortingList)
 
-=======
 	http.HandleFunc("/changeMap", MapUpDate)
 	http.HandleFunc("/reloadAPI", ReloadAPI)
-	Port := "8080"                                           //We choose port 8080
+	Port := "8080"                                          //We choose port 8080
 	fmt.Println("The serveur start on port " + Port + " 🔥") //We print this when the server is online
 	fmt.Println("http://localhost:8080/")
->>>>>>> main
 	http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
@@ -75,7 +69,7 @@ func ReloadAPI(w http.ResponseWriter, r *http.Request) {
 	/*
 	* Function who reload information from the api
 	 */
-	 groupietrackers.APICall("https://groupietrackers.herokuapp.com/api/artists", &Cards.Array)
+	groupietrackers.APICall("https://groupietrackers.herokuapp.com/api/artists", &Cards.Array)
 	FastServerStart()
 	Adminpage(w, r)
 }
@@ -88,7 +82,7 @@ func NbrInPageChange(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		NumberOfCards = NewNumberOfCards
 		var TmpValueForCards = Cards.Array
-		CardsPagination =  groupietrackers.IntoMultiplePages(&NumberOfCards, TmpValueForCards, 1, &Cards.ForReacherchBar)
+		CardsPagination = groupietrackers.IntoMultiplePages(&NumberOfCards, TmpValueForCards, 1, &Cards.ForReacherchBar)
 		MainPage(w, r)
 	} else {
 		MainPage(w, r)
@@ -187,7 +181,7 @@ func searchName(w http.ResponseWriter, r *http.Request) {
 				NewDataForInput.Array = append(NewDataForInput.Array, value)
 			}
 		}
-		SortedCardsPagination =  groupietrackers.IntoMultiplePages(&NumberOfCards, NewDataForInput.Array, -1 ,&Cards.ForReacherchBar)
+		SortedCardsPagination = groupietrackers.IntoMultiplePages(&NumberOfCards, NewDataForInput.Array, -1, &Cards.ForReacherchBar)
 		tmpl := template.Must(template.ParseFiles("./template/mainPage.html")) //We link the template and the html file
 		tmpl.Execute(w, SortedCardsPagination[0])
 	}
@@ -232,7 +226,7 @@ func FastServerStart() {
 
 	var TmpValueForCards = Cards.Array
 	Cards.ForReacherchBar = Cards.Array
-	CardsPagination = groupietrackers.IntoMultiplePages(&NumberOfCards, TmpValueForCards, 1 ,&Cards.ForReacherchBar)
+	CardsPagination = groupietrackers.IntoMultiplePages(&NumberOfCards, TmpValueForCards, 1, &Cards.ForReacherchBar)
 	fmt.Println("loading API 100%")
 }
 func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
@@ -284,7 +278,6 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	}
 	return ArtistsToDisplay
 }
-<<<<<<< HEAD
 
 // func FastServerStart(wg *sync.WaitGroup) { // We enter the DB and the word to add for add the word into the target DB
 // 	defer wg.Done() //We use defer for close wg in the end of the function
@@ -292,95 +285,68 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 // 	json.Unmarshal(data, &Cards.Array)
 // }
 
-func FastServerStart() { // We enter the DB and the word to add for add the word into the target DB
-	fmt.Println("loading ---------------------------------------------------------------------------------------------------- 0%")
-	data := APICall("https://groupietrackers.herokuapp.com/api/artists")
-	json.Unmarshal(data, &Cards.Array)
-	fmt.Println("loading +++++++++++++++++++++++++--------------------------------------------------------------------------- 25%")
-	data = APICall("https://groupietrackers.herokuapp.com/api/locations")
-	json.Unmarshal(data, &LocationEx)
-	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------------- 50%")
-	data = APICall("https://groupietrackers.herokuapp.com/api/dates")
-	json.Unmarshal(data, &DatesEx)
-	fmt.Println("loading +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------- 75%")
-	data = APICall("https://groupietrackers.herokuapp.com/api/relation")
-	json.Unmarshal(data, &RelationEx)
-	for index := range Cards.Array {
-		Cards.Array[index].SpotifyId = groupietrackers.Spotify[Cards.Array[index].Id]
-		Cards.Array[index].Locations = LocationEx.Index[index].Locations
-		Cards.Array[index].ConcertDates = DatesEx.Index[index].Dates
-		Cards.Array[index].Relations = RelationEx.Index[index].DatesLocations
-	}
+// func SortingList(w http.ResponseWriter, r *http.Request) {
+// 	alphabeticalOrder := r.FormValue("sorting") // vas chercher sorting dans mainPage.html
+// 	// reverseAlphabeticalOrder := r.FormValue("sorting")
+// 	// numberOfArtists := r.FormValue("sorting")
 
-	var NumberOfCardsForFunction = NumberOfCards
-	CardsPagination = IntoMultiplePages(NumberOfCardsForFunction, Cards.Array, 1)
-	fmt.Println("loading ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 100%")
-}
+// 	// alphabeticalOrder := SortByAlphabetical()
 
-func SortingList(w http.ResponseWriter, r *http.Request) {
-	alphabeticalOrder := r.FormValue("sorting") // vas chercher sorting dans mainPage.html
-	// reverseAlphabeticalOrder := r.FormValue("sorting")
-	// numberOfArtists := r.FormValue("sorting")
+// 	// Entry :=
+// 	if Entry == alphabeticalOrder {
+// 		SortByAlphabetical()
+// 	}
 
-	// alphabeticalOrder := SortByAlphabetical()
+// 	// if alphabetical order = true --> return main page
+// 	fmt.Println(alphabeticalOrder)
+// 	// SortByReverseAlphabetical(Cards.Array)
+// 	MainPage(w, r)
+// }
 
-	// Entry :=
-	if Entry == alphabeticalOrder {
-		SortByAlphabetical()
-	}
+// func SortByAlphabetical(Entry []groupietrackers.Artists) {
+// 	index := 0
+// 	lenght := len(Entry)
 
-	// if alphabetical order = true --> return main page
-	fmt.Println(alphabeticalOrder)
-	// SortByReverseAlphabetical(Cards.Array)
-	MainPage(w, r)
-}
+// 	for index < lenght-1 {
+// 		if Entry[index].Name > Entry[index+1].Name {
+// 			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
+// 			index = 0
+// 		} else {
+// 			index++
+// 		}
 
-func SortByAlphabetical(Entry []groupietrackers.Artists) {
-	index := 0
-	lenght := len(Entry)
+// 	}
+// 	Cards.Array = Entry
+// 	IntoMultiplePages(NumberOfCards, Entry, 1)
+// }
 
-	for index < lenght-1 {
-		if Entry[index].Name > Entry[index+1].Name {
-			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
-			index = 0
-		} else {
-			index++
-		}
+// func SortByReverseAlphabetical(Entry []groupietrackers.Artists) {
+// 	index := 0
+// 	lenght := len(Entry)
 
-	}
-	Cards.Array = Entry
-	IntoMultiplePages(NumberOfCards, Entry, 1)
-}
+// 	for index < lenght-1 {
+// 		if Entry[index].Name < Entry[index+1].Name {
+// 			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
+// 			index = 0
+// 		} else {
+// 			index++
+// 		}
 
-func SortByReverseAlphabetical(Entry []groupietrackers.Artists) {
-	index := 0
-	lenght := len(Entry)
+// 	}
+// 	Cards.Array = Entry
+// 	IntoMultiplePages(NumberOfCards, Entry, 1)
+// }
 
-	for index < lenght-1 {
-		if Entry[index].Name < Entry[index+1].Name {
-			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
-			index = 0
-		} else {
-			index++
-		}
+// func SortByNumberOfArtist(Entry []groupietrackers.Member) {
+// 	index := 0
+// 	lenght := len(Entry)
 
-	}
-	Cards.Array = Entry
-	IntoMultiplePages(NumberOfCards, Entry, 1)
-}
-
-func SortByNumberOfArtist(Entry []groupietrackers.Member) {
-	index := 0
-	lenght := len(Entry)
-
-	for index < lenght {
-		if Entry[index].Member < Entry[index+1].Member {
-			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
-			index = 0
-		} else {
-			index++
-		}
-	}
-}
-=======
->>>>>>> main
+// 	for index < lenght {
+// 		if Entry[index].Member < Entry[index+1].Member {
+// 			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
+// 			index = 0
+// 		} else {
+// 			index++
+// 		}
+// 	}
+// }
