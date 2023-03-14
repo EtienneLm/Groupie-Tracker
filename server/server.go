@@ -49,7 +49,6 @@ func Inisialistion() {
 	http.HandleFunc("/artistPage", artistPage)
 	http.HandleFunc("/searchName", searchName)
 	http.HandleFunc("/concert", concertPage)
-	http.HandleFunc("/aboutUs", aboutUsPage)
 	http.HandleFunc("/contactUs", contactUsPage)
 	http.HandleFunc("/changePage", ChangePage)
 	http.HandleFunc("/adminLog", AdminLog)
