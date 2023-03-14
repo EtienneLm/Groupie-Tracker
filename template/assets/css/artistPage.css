@@ -45,6 +45,8 @@ body {
   .Map {
     max-width: 500px;
     max-height: 400px;
+    min-height: 24vw;
+    min-width: 30vw;
   }
 
   .map {

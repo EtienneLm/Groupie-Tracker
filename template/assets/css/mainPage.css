@@ -1,7 +1,7 @@
 body {
   text-align: center;
   background-image: url("../img/BackG.jpg");
-  background-position: fixed;
+  background-position: center;
   scroll-behavior: smooth;
 }
 
