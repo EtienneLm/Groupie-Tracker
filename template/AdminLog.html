@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="http://localhost:8080/styles/Admin.css">
+    <link rel="stylesheet" href="http://localhost:8080/assets/css/Admin.css">
 
     <title>Artist Page</title>
 </head>
@@ -24,12 +24,8 @@
         </div>
     </div>
     {{if .IsConnected}} 
-    <form action="NbrInPageChange" method="post" id="login-form">
-        <div class = 'divInput'>
-            <label for="mail" class="label-input"> Number of Artists in a page </label>
-            <input type="text" class="inputText" name = "mail" id = "mail" placeholder="Enter Number">
-        </div>
-        <button> Save </button>
+    <form action="reloadAPI" method="post" id="login-form">
+        <button> Mettre à jour la base de donner </button>
     </form>
      {{else}} 
     <form action="adminpage" method="post" id="login-form">
