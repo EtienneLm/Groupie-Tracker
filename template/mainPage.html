@@ -27,24 +27,25 @@
             </form>
         </div>
         
-        <h1 class="title">Welcome on our web site</h1>
+        <h1 class="title">Bienvenue sur nôtre site Internet</h1>
         <div class="buttonBar">
-            <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
-            <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
+            <form action="concert" method="post"><button class="concertButton" type="submit">Voir les concerts</button></form>
+            <form action="contactUs" method="post"><button class="contactButton" type="submit">Nous contacter</button></form>
         </div>
+
         <div class="buttonBar" style="margin-top: 5vh; margin-bottom: 5vh;">
             <form action="NbrInPageChange" method="post" id="login-form">
                 <div class = 'divInput'>
-                    <label for="nbrOfCard" class="label-input"> Number of Artists in a page </label>
+                    <label for="nbrOfCard" class="label-input"> Choisir le nombre d'artistes </label>
                     <input type="text" class="inputText" name = "mail" id = "nbrOfCard" placeholder="Enter Number">
                 </div>
             </form>
             <form action="sorting" method="post" class="sortHere" >
                 <select name="sorting" id="choose-sorting">
                     <option value="alphabeticalOrder">--Choisissez une option--</option>
-                    <option value="alphabeticalOrder" >Alphabetical Order</option> 
-                    <option value="reverseAlphabeticalOrder" >Reverse Alphabetical Order</option>
-                    <option value="numberOfArtists" >Number of Artists</option>
+                    <option value="alphabeticalOrder" >Ordre Alphabétique</option> 
+                    <option value="reverseAlphabeticalOrder" >Ordre Alphabétique inverse</option>
+                    <option value="numberOfArtists" >Nombre d'artistes d'un</option>
                 </select>
                 <button class="hiddenButton">
                     valider

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://localhost:8080/assets/css/Admin.css">
 
-    <title>Artist Page</title>
+    <title>Page Artistes</title>
 </head>
 <body>
     <div class="LeftSide">
@@ -19,7 +19,7 @@
         <div class="Left-Bar">
             <a href ="http://localhost:8080" ><button class="leftBarButton">Menu</button></a>
             {{if .IsConnected}} 
-            <form action="adminLog" method="post"> <button class="leftBarButton"> Disconnecte </button></form>
+            <form action="adminLog" method="post"> <button class="leftBarButton"> Se déconnecter </button></form>
             {{end}}
         </div>
     </div>
@@ -32,12 +32,12 @@
         <div class = 'divInput'>
             <label for="mail" class="label-input"> ID </label>
             <input type="text" class="inputText" name = "mail" id = "mail" placeholder="Enter ID">
-            <label for="psw" class="label-input"> Password </label>
+            <label for="psw" class="label-input"> Mot-de-passe </label>
             <input type="password" class="inputText" name = "psw" id = "psw" placeholder="Enter PassWord">
         </div>
-        <button> Login as an admin </button>
+        <button> Se connecter en tant qu'Admin </button>
         {{if .IsBadInput}}
-        <p  class="badEntry"> Wrong password or id </p>
+        <p  class="badEntry"> Mauvais mot-de-passe ou id </p>
         {{end}}
     </form>
     {{end}}
