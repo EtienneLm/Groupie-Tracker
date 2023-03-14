@@ -81,7 +81,7 @@ func RemoveSpace(entry string) string {
 func GetArtist(Artists string, SpotifyToken *string) {
 	Artists = RemoveSpace(Artists)
 	url := "https://api.spotify.com/v1/search?query=artist%3A" + Artists + "&type=artist&locale=fr%2Cfr-FR%3Bq%3D0.8%2Cen-US%3Bq%3D0.5%2Cen%3Bq%3D0.3&offset=0&limit=1&access_token=" + *SpotifyToken
-	APICall(url , &SpotifyInfo)
+	APICall(url, &SpotifyInfo)
 	if SpotifyInfo.Error.Status == 401 {
 		SpotifyInfo.Error.Status = 0
 		Token(SpotifyToken)

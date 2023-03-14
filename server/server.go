@@ -236,8 +236,30 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	* This function is called when we clic on a artist card , we make a new struct with
 	* the data of the artist for golang template because we can't use the struct of the json file
 	 */
+	//We find the id of the artist in the Cards.Array array
+	fmt.Println("IdArstist", IdArstist)
+	for index, value := range Cards.Array {
+		fmt.Println(value.Name, value.Id)
+		if value.Id == IdArstist+1 {
+			IdArstist = index
+			break
+		}
+	}
+
+	switch Cards.Array[IdArstist].Name {
+	case "ACDC":
+		groupietrackers.GetArtist("AC/DC", &SpotifyToken)
+	case "The Jimi Hendrix Experience":
+		groupietrackers.GetArtist("Jimi Hendrix", &SpotifyToken)
+	case "NWA":
+		groupietrackers.GetArtist("N.W.A.", &SpotifyToken)
+	case "Bobby McFerrins":
+		groupietrackers.GetArtist("Bobby McFerrin", &SpotifyToken)
+	default:
+		groupietrackers.GetArtist(Cards.Array[IdArstist].Name, &SpotifyToken)
+	}
 	//* We call spotify api
-	groupietrackers.GetArtist(Cards.Array[IdArstist].Name, &SpotifyToken)
+
 	var ArtistsToDisplay groupietrackers.ArtistsToDisplay
 	ArtistsToDisplay.Id = Cards.Array[IdArstist].Id
 	ArtistsToDisplay.Image = Cards.Array[IdArstist].Image
