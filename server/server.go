@@ -315,5 +315,14 @@ func SortByReverseAlphabetical(Entry []groupietrackers.Artists) {
 
 func SortByNumberOfArtist(Entry []groupietrackers.Member) {
 	index := 0
+	lenght := len(Entry)
 
+	for index < lenght {
+		if Entry[index].Member < Entry[index+1].Member {
+			Entry[index], Entry[index+1] = Entry[index+1], Entry[index]
+			index = 0
+		} else {
+			index++
+		}
+	}
 }
