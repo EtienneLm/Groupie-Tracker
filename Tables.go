@@ -34,6 +34,7 @@ type Artists struct {
 	FirstAlbum   string
 	Locations    []string
 	ConcertDates []string
+	Concert      []Concert
 	Relations    map[string][]string
 }
 
@@ -51,8 +52,8 @@ type ArtistsToDisplay struct {
 	X               float64
 	Y               float64
 	SpotifyId       string
-	Genre string
-	Followers int 
+	Genre           string
+	Followers       int
 }
 type Member struct {
 	Member string

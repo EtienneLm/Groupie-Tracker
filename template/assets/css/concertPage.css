@@ -34,3 +34,9 @@ body {
     opacity: 0.9;
     justify-content: space-between;
 }
+.Concert{
+    color: #00da9e;
+}
+.artist{
+    color: #4100da;
+}

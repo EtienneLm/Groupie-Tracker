@@ -204,8 +204,9 @@ func concertPage(w http.ResponseWriter, r *http.Request) {
 	/*
 	* Redirecte to the concert page
 	 */
+	AllConcertsInit()
 	tmpl := template.Must(template.ParseFiles("./template/concertPage.html"))
-	tmpl.Execute(w, r)
+	tmpl.Execute(w, Cards)
 }
 
 func aboutUsPage(w http.ResponseWriter, r *http.Request) {
@@ -243,6 +244,7 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 		toAppend.Member = value
 		ArtistsToDisplay.Members = append(ArtistsToDisplay.Members, *toAppend)
 	}
+
 	//* We make a new struct for the concerts
 	ArtistsToDisplay.Concert = nil
 	for _, value := range Cards.Array[SelectedCard].Locations {
@@ -357,6 +359,32 @@ func IntoMultiplePages(NumberOfCards int, Entry []groupietrackers.Artists, toTur
 	}
 	CardPagiantion = append(CardPagiantion, TmpCardsArray)
 	return CardPagiantion
+}
+
+func AllConcertsInit() {
+	for i := range Cards.Array {
+		fmt.Println(Cards.Array[i].Name)
+		Cards.Array[i].Concert = nil
+		for _, value := range Cards.Array[i].Locations {
+			for _, date := range Cards.Array[i].Relations[value] {
+				toAppend := new(groupietrackers.Concert)
+				toAppend.Location = value
+				toAppend.Date = date
+				Cards.Array[i].Concert = append(Cards.Array[i].Concert, *toAppend)
+			}
+		}
+		//* We sort concert to have the next concert first
+		index := 0
+		lenght := len(Cards.Array[i].Concert) - 1
+		for index < lenght {
+			if groupietrackers.DateCompare(Cards.Array[i].Concert[index].Date, Cards.Array[i].Concert[index+1].Date) {
+				Cards.Array[i].Concert[index], Cards.Array[i].Concert[index+1] = Cards.Array[i].Concert[index+1], Cards.Array[i].Concert[index]
+				index = 0
+			} else {
+				index++
+			}
+		}
+	}
 }
 
 // func Inisialistion() {

@@ -8,15 +8,9 @@
     <title>Concert Page</title>
 </head>
 <body>
-    <datalist id="names">
-        {{range .Array}}
-        <option value="{{.Name}}">
-        {{end}}
-      </datalist>
-
     <div class ="navbar">
-        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a>
-        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/styles/logoIA.png" width="90%"/></a>
+        <!-- <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a> -->
+        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/logoIA.png" width="90%"/></a>
         <div class="researchBar">
             <img src=""/>
             <form action="searchName" method="post">
@@ -24,17 +18,22 @@
             </form>
         </div>
     </div>
-    
-    <div class="Concert"> 
-        {{range .Array}}
-        <a class="title">Concsqdqsdqsert</a>
-        <img src = {{.Image}} class="image"></img><br>
-        <div class="container">
-            <h2>{{.Date}}</h2>
-        </div>
-            
-        {{end}}
-    </div>
 
+    <div class="Concert">
+        <div class="artist">
+            {{range .Array}}
+            
+        </div>
+        {{.Name}}
+        {{range .Concert}}
+            {{.Location}}
+            {{.Date}}
+            {{end}}
+         {{end}}
+        
+        
+        
+        
+    </div>
 </body>
 </html>
