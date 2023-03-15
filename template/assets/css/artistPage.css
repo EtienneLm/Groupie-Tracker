@@ -58,10 +58,10 @@ body {
   }
 
   .imgArtist{
+    margin-left: 2vw            ;
     max-width: 10vw;
     max-height: 10vw;
   }
-
   .LeftSide{
     position: -webkit-sticky;
     position: sticky;
@@ -69,12 +69,12 @@ body {
     top: 0px;
     flex-direction: column;
     height: 100vh;
-    background-color: #2B0935;
     border-right: #C91BFE 1px solid;
     cursor: pointer;
   }
 
   .LeftSideClose{
+    background-color: #2B0935;
     width: 7vw;
   }
 
@@ -84,6 +84,7 @@ body {
   }
 
   .LeftSideOpen{
+    background-color: #F9E5FF;
     width: 15vw;
   }
 
@@ -121,11 +122,12 @@ body {
   }
 
 .leftBarButton{
-  background-color: #F9E5FF;
+  background-color: #2A0934;
+  color: #F9E5FF ;
   border: transparent solid 2px;
   border-radius: 5px;
   margin-top: 2vh;
-  width: 12vw;
+  width: 8vw;
   height: 5vh;
   font-size: 1vw;
 }
@@ -134,7 +136,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #2A0934;
+  background-color: transparent;
   margin-top: 2vh;
 }
 
@@ -151,8 +153,13 @@ body {
 @keyframes LeftBarOpenning {
   0% {
     width: 7vw;
+    background-color: #2A0934;
+  }
+  50% {
+    background-color: gradiante(#2A0934, #F9E5FF);
   }
   100% {
+    background-color: #F9E5FF;
     width: 15vw;
   }
 }
@@ -160,8 +167,13 @@ body {
 @keyframes LeftBarClosing {
   0% {
     width: 15vw;
+    background-color: #F9E5FF;
+  }
+  50% {
+    background-color: gradiante(#2A0934, #F9E5FF);
   }
   100% {
+    background-color: #2A0934;
     width: 7vw;
   }
 }
