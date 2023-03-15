@@ -11,60 +11,71 @@
     <datalist id="names">
         {{range .ForReacherchBar}}
         <option value="{{.Name}}">
-        {{end}}
-      </datalist>
-    <div class ="navbar">
-        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a>
-        <div class="researchBar">
-            <form action="searchName" method="post">
-                <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/assets/img/loupe.png"/>
+            {{end}}
+        </datalist>
+        <div class ="navbar">
+            <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a>
+                <form action="searchName" method="post" class="searchName">
+                    <img class = "loupe" src="http://localhost:8080/assets/img/loupe-svgrepo-com.svg" alt="loupe" style="filter: brightness(0) invert(1);">
+                    <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/assets/img/loupe.png"/>
+                </form>
+            <form action="adminLog" method="post">
+                <button  style = "border: transparent; background-color: transparent; margin-right: 5vw;"> <img src="http://localhost:8080/assets/img/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px" style="filter: brightness(0) invert(1);"> </button>
             </form>
         </div>
-        <form action="adminLog" method="post">
-            <button  style = "border: transparent; background-color: transparent;"> <img src="http://localhost:8080/assets/img/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px"> </button>
-        </form>
-    </div>
-
-    <h1 class="title">Welcome on our web site</h1>
-    <div class="buttonBar">
-        <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
-        <form action="aboutUs" method="post"><button class="aboutUsButton" type="submit">About us</button></form>
-        <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
-    </div>
-    <div class="buttonBar" style="margin-top: 5vh; margin-bottom: 5vh;">
-        <form action="NbrInPageChange" method="post" id="login-form">
+        
+        <h1 class="title">Bienvenue sur notre site web</h1>
+        <div class="buttonBar">
+            <form action="concert" method="post"><button class="concertButton" type="submit">Voire les concerts</button></form>
+            <form action="contactUs" method="post"><button class="concertButton" type="submit">Nous contacter </button></form>
+        </div>
+        <div class="buttonBar" style="margin-top: 5vh; margin-bottom: 5vh;">
+            <form action="NbrInPageChange" method="post" id="login-form">
                 <div class = 'divInput'>
-                    <label for="nbrOfCard" class="label-input"> Number of Artists in a page </label>
-                    <input type="text" class="inputText" name = "mail" id = "nbrOfCard" placeholder="Enter Number">
+                    <label for="nbrOfCard" class="label-input"> Nombre d'artistes dans une page </label>
+                    <input type="text" class="inputText" name = "mail" id = "nbrOfCard" placeholder="Entrer un nombre">
                 </div>
             </form>
+            <form action="sorting" method="post">
+                <select name="sorting" id="choose-sorting" class="choose-sorting">
+                    <option value="alphabeticalOrder" style="text-align: center;">--Trier par--</option>
+                    <option value="alphabeticalOrder" style="text-align: center;">A-Z</option> 
+                    <option value="reverseAlphabeticalOrder" style="text-align: center;">Z-A</option>
+                    <option value="numberOfArtists" style="text-align: center;">Par nombre de membres</option>
+                </select>
+                <button class="concertButton">
+                    valider
+                </button>
+            </form>
         </div>
-    <div class="allTheCards">
-        {{range .Array}}    
-        <form action="artistPage" method="post">
-            <button class="card" value="{{.Id}}" type="submit" name="cardButton">
-                <img src = {{.Image}} class="image"></img><br>
-                <div class="container">
-                    <h2>{{.Name}}</h2>
-                </div>
-            </button>
-        </form>
-        {{end}} 
+        <div class="allTheCards">
+            {{range .Array}}    
+            <form action="artistPage" method="post">
+                <button class="card" value="{{.Id}}" type="submit" name="cardButton">
+                    <img src = {{.Image}} class="image"></img><br>
+                    <div class="container">
+                        <h2>{{.Name}}</h2>
+                    </div>
+                </button>
+            </form>
+            {{end}} 
+        </div>
+        <div class="forCenter">
+        <div class="ButtonForChangePage">
+            {{if .NotFirstPage}}
+            <form action="changePage" method="post">
+                <button class="previousPage" type="submit" name="topage" value = "{{.PreviousPage}}"><i class="arrow left"></i></button>
+            </form> 
+            {{end}}
+            {{if .NotFirstPage}} 
+            {{if .NotLastPage}} <p class="Pagetext" >{{.IdPage}}</p>  {{end}}
+            {{end}}
+            {{if .NotLastPage}} 
+            <form action="changePage" method="post">
+                <button class="nextPage" type="submit" name="topage" value = "{{.NexPage}}"><i class="arrow right"></i></button>
+            </form>
+            {{end}} 
+        </div>
     </div>
-    <div class="ButtonForChangePage">
-    {{if .NotFirstPage}}
-        <form action="changePage" method="post">
-            <button class="previousPage" type="submit" name="topage" value = "{{.PreviousPage}}"><i class="arrow left"></i></button>
-        </form> 
-    {{end}}
-    {{if .NotFirstPage}} 
-        {{if .NotLastPage}} <p style="font-size: 1.5vw ; margin-top: 0;">{{.IdPage}}</p>  {{end}}
-    {{end}}
-    {{if .NotLastPage}} 
-    <form action="changePage" method="post">
-            <button class="nextPage" type="submit" name="topage" value = "{{.NexPage}}"><i class="arrow right"></i></button>
-    </form>
-    {{end}} 
-    </div>
-</body>
-</html>
+    </body>
+    </html>

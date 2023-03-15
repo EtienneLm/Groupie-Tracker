@@ -9,22 +9,28 @@
 </head>
 <body>
     <div class ="navbar">
-        <!-- <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a> -->
-        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/logoIA.png" width="90%"/></a>
-        <div class="researchBar">
-            <img src=""/>
-            <form action="searchName" method="post">
-                <input class="search" type="text" name="searchName"/>
+        <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a>
+            <form action="searchName" method="post" class="searchName">
+                <img class = "loupe" src="http://localhost:8080/assets/img/loupe-svgrepo-com.svg" alt="loupe" style="filter: brightness(0) invert(1);">
+                <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/assets/img/loupe.png"/>
             </form>
-        </div>
+        <form action="adminLog" method="post">
+            <button  style = "border: transparent; background-color: transparent; margin-right: 5vw;"> <img src="http://localhost:8080/assets/img/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px" style="filter: brightness(0) invert(1);"> </button>
+        </form>
     </div>
 
     <div class="Concert">
         <div class="artist">
             {{range .Array}}
-            
+            <div class="artistName">
+                <h1>{{.Name}}</h1>
+            </div>
+            <div class="artistImage">
+                <img src = {{.Image}} class="image">
+            </div>
+
         </div>
-        {{.Name}}
+        
         {{range .Concert}}
             {{.Location}}
             {{.Date}}

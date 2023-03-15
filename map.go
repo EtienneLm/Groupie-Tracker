@@ -23,6 +23,20 @@ func ToHex(entry string) string {
 	return fmt.Sprintf("%x", entry)
 }
 
+func Map(address string) []float64 {
+	/*
+	* This function is used to extract GPS coordinates from an address , for the map on artist page and concert page
+	 */
+	var Map ForBingAPI
+	apiKey := "AtsZ2m7fUBuOM17Nm1fpRCB21Xx-qC55dPhOb5Y3HWQbTXNVQR9___IDm6Fl5DRf" // Clé API de Bing Maps
+	//
+	url := fmt.Sprintf("https://dev.virtualearth.net/REST/v1/Locations?q=%s&key=%s", address, apiKey)
+	APICall(url, &Map)
+	return Map.ResourceSets[0].Resources[0].Point.Coordinates
+}
+
+
+
 func DateCompare(date1 string, date2 string) bool {
 	/*
 	* This function compare two dates and return true if the first date is before the second date

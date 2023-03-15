@@ -1,23 +1,24 @@
 body {
   text-align: center;
-  background-image: url("../img/BackG.jpg");
-  background-position: fixed;
+  background : #F9E5FF ;
   scroll-behavior: smooth;
+  margin: 0 0 0 0 ;
 }
 
 .navbar{
   display: flex;
+  align-items: space-between;
+  justify-content: space-between;
   background-color: transparent;
-  min-height: 10vh;
+  min-height: 8vh;
+  width: 100vw;
 }
 
 .navHomeButton{
+  margin-left: 5vw;
   height: 10vh;
   width: 10vh; 
-  min-height: auto;
-  text-decoration:none;
-  opacity: 0.9;
-  border-radius: 50px;
+  border-radius: 100px;
 }
 
 .researchBar{
@@ -28,18 +29,18 @@ body {
 
 .title{
   font-size: 80px;
-  color: rgba(255, 255, 255,0.75);
+  color: #2A0934;
   transition: 0.3s;
 }
 .title:hover{
-  color: rgba(255, 255, 255,0.75);
+  color: #2A0934;
 } 
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255,0.75);
-  box-shadow: 0 4px 8px 0 rgb(255, 255, 255);
+  background-color: #C91BFE;
+  box-shadow: 0 4px 8px 0 #C91BFE;
   
   transition: 0.3s;
   border-radius: 10px;
@@ -69,9 +70,9 @@ body {
   
 }
 .image{
+  margin-top: 2vh;
   width: 90%;
   border-radius: 100;
-  margin-top: 2vh;
   /* align-content: center; */
   transition: all 2s ease-in-out;
 }
@@ -103,6 +104,7 @@ body {
 
 .navbar{
   justify-content: space-between;
+  align-items: center;
   display: flex;
   background-color: transparent;
   min-height: 10vh;
@@ -122,24 +124,28 @@ body {
 
 .navbar{
   top: 0;
-  background-color: rgba(0, 0, 0, 0.438);
+  background-color: #2A0934;
   display: flex;
-  align-items: center;
+  align-items: space-between;
+  min-height: 15vh;
+}
+.searchName {
+  border : 4px solid #F9E5FF;
+  min-height: 5vh;
+  min-width: 25vw;
+  display: flex;
+  border-radius: 20px;
+}
+.search {
+  background: none;
+  border: none;
+  font-size: 25px;
+  color : #F9E5FF ;
+  max-width: 18vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
 }
 
-.search {
-  
-  width: 80px;
-  height: 80px;
-  background: none;
-  border: 4px solid  rgba(255, 255, 255,0.75);
-  border-radius: 50px;
-  box-sizing: border-box;
-  font-size: 26px;
-  color: rgba(255, 255, 255,0.75);
-  outline: none;
-  transition: .5s;
-}
 .researchBar:hover input{
   width: 350px;
   background: transparent;
@@ -159,40 +165,64 @@ body {
   z-index: -1;
 }
 
-
-
 .concertBar{
   justify-content: space-between;
 }
 
+.label-input {
+  font-size: 20px;
+  color: #F9E5FF; 
+}
 .buttonBar{
-  background: rgba(255, 255, 255,0.75);
-  height: 5vh;
-  width: 50vw; 
-  border-radius: 20px;
+  background: #2A0934;
+  height: 7vh;
+  width: 70vw; 
+  border-radius: 25px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   /* display: block;
   position: relative; */
   margin-left: auto;
-  margin-right: auto;  
+  margin-right: auto;
+  margin-bottom: 4vh;
 }
-
-.concertButton {  /*https://getcssscan.com/css-buttons-examples*/
-  background-color: rgb(210, 202, 202);
+.inputText {
+  background-color: #F9E5FF;
+  color: #2A0934;
+  font-size: 20px;
   border-radius: 20px;
-  box-shadow: rgba(243, 248, 245, 0.2) 0 -25px 18px -14px inset,rgba(243, 248, 245, 0.15) 0 1px 2px,rgba(243, 248, 245, 0.15) 0 2px 4px,rgba(243, 248, 245, 0.15) 0 4px 8px,rgba(243, 248, 245, 0.15) 0 8px 16px,rgba(243, 248, 245, 0.15) 0 16px 32px;
-  color: black;
+  border: #F9E5FF 2px solid;
+}
+.choose-sorting {
+  margin-right: 1vw;
+  font-size: 20px;
+  color : #2A0934;
+  background-color: #F9E5FF;
+  border-radius: 20px;
+
+
+}
+.loupe {
+  border-right : 2px solid #F9E5FF;
+ 
+  width: 35px;
+  padding-right: 1vw;
+  margin-left: 1vw;
+}
+.concertButton {  /*https://getcssscan.com/css-buttons-examples*/
+  background-color: #F9E5FF;
+  border-radius: 20px;
+  color: #2A0934;
   cursor: pointer;
   display: inline-block;
   font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
-  padding: 7px 20px;
+  padding: 0.5vw 3vw;
   text-align: center;             
   text-decoration: none;
   transition: all 250ms;   
   border: 0;
-  font-size: 16px;
+  font-size: 20px;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -251,30 +281,40 @@ body {
   transform: scale(1.05) rotate(-1deg);
 }
 .previousPage {
-  background-color: rgb(210, 202, 202);
+  background: transparent;
+  border: transparent;
   width: 5vw;
   height: 6vh;
-  border-radius: 15px ;
-  border: transparent;
-  margin-right: 1vw;
+}
+.Pagetext {
+  font-size: 20px;
+  color : #F9E5FF;
 }
 .nextPage {
-  background-color: rgb(210, 202, 202);
+  background: transparent;
+  border: transparent;
   width: 5vw;
   height: 6vh;
-  border-radius: 15px ;
-  border: transparent;
-  margin-left: 1vw;
+}
+.forCenter {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5vw;
 }
 .ButtonForChangePage {
+  max-height: 6vh;
+  background-color: #2A0934 ;
+  border-radius: 25px;
   display: flex;
-  width: 98vw;
+  width: fit-content;
+  align-items: center;
   justify-content: center;
 }
 /*https://www.w3schools.com/howto/howto_css_arrows.asp*/
 .arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
+  border: solid #F9E5FF;
+  border-width: 0 5px 5px 0;
   display: inline-block;
   padding: 3px;
 }
@@ -287,7 +327,7 @@ body {
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
-
+  
 }
 .PageNBR {
   font-size: 1.5vw;
@@ -295,6 +335,10 @@ body {
   background-color: red;
 }
 .Para {
-  margin-left : 80vw;
   cursor: pointer;
+}
+
+.hiddenButton{
+  background-color: transparent;
+  border-color: transparent;
 }

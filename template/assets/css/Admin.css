@@ -1,7 +1,6 @@
 body {
     text-align: center;
-    background: linear-gradient(to right, #00da9e,#33a7ae,#2cadab, #709ccc, #8e80e1);
-    scroll-behavior: smooth;
+    background: #F9E5FF ;
     margin: 0px;
     display: flex;
     justify-content: space-between;
@@ -29,9 +28,9 @@ body {
 #login-form > button {
     cursor: pointer;
     margin-top: 5vh;
-    border: black 2px solid;
     border-radius: 10px;
-    background-color: rgba(255,255,255,0.75);
+    color: #F9E5FF;
+    background-color: #2A0934;
     font-size: 30px;
     padding: 5px;
 }
@@ -66,14 +65,14 @@ body {
     margin-top: 4vh;
 }
 .leftBarButton{
-    background-color: rgba(255,255,255,0.75);
-    border: rgba(255,255,255,0.75) solid 2px;
+    color: #F9E5FF;
+    background-color: #2A0934;
     border-radius: 5px;
     margin-top: 2vh;
     width: 12vw;
     height: 5vh;
     margin-left: 2vw;
-    font-size: 1vw;
+    font-size: 20px;
 }
 .burger-shower {
     display: none;
