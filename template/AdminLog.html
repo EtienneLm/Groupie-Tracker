@@ -19,7 +19,7 @@
         <div class="Left-Bar">
             <a href ="http://localhost:8080" ><button class="leftBarButton">Menu</button></a>
             {{if .IsConnected}} 
-            <form action="adminLog" method="post"> <button class="leftBarButton"> Disconnecte </button></form>
+            <form action="adminLog" method="post"> <button class="leftBarButton"> Se déconnecter </button></form>
             {{end}}
         </div>
     </div>
@@ -31,13 +31,13 @@
     <form action="adminpage" method="post" id="login-form">
         <div class = 'divInput'>
             <label for="mail" class="label-input"> ID </label>
-            <input type="text" class="inputText" name = "mail" id = "mail" placeholder="Enter ID">
-            <label for="psw" class="label-input"> Password </label>
-            <input type="password" class="inputText" name = "psw" id = "psw" placeholder="Enter PassWord">
+            <input type="text" class="inputText" name = "mail" id = "mail" placeholder="Entrer votre ID">
+            <label for="psw" class="label-input"> Mot De Passe </label>
+            <input type="password" class="inputText" name = "psw" id = "psw" placeholder="Enter Mot de passe ">
         </div>
-        <button> Login as an admin </button>
+        <button> Se connecter en temps qu' Admin</button>
         {{if .IsBadInput}}
-        <p  class="badEntry"> Wrong password or id </p>
+        <p  class="badEntry"> Mauvais mot de passe ou ID </p>
         {{end}}
     </form>
     {{end}}

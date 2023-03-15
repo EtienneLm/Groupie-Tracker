@@ -24,24 +24,24 @@
             </form>
         </div>
         
-        <h1 class="title">Welcome on our web site</h1>
+        <h1 class="title">Bienvenue sur notre site web</h1>
         <div class="buttonBar">
-            <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
-            <form action="contactUs" method="post"><button class="concertButton" type="submit">Contact us</button></form>
+            <form action="concert" method="post"><button class="concertButton" type="submit">Voire les concerts</button></form>
+            <form action="contactUs" method="post"><button class="concertButton" type="submit">Nous contacter </button></form>
         </div>
         <div class="buttonBar" style="margin-top: 5vh; margin-bottom: 5vh;">
             <form action="NbrInPageChange" method="post" id="login-form">
                 <div class = 'divInput'>
-                    <label for="nbrOfCard" class="label-input"> Number of Artists in a page </label>
-                    <input type="text" class="inputText" name = "mail" id = "nbrOfCard" placeholder="Enter Number">
+                    <label for="nbrOfCard" class="label-input"> Nombre d'artistes dans une page </label>
+                    <input type="text" class="inputText" name = "mail" id = "nbrOfCard" placeholder="Entrer un nombre">
                 </div>
             </form>
             <form action="sorting" method="post">
                 <select name="sorting" id="choose-sorting" class="choose-sorting">
                     <option value="alphabeticalOrder" style="text-align: center;">--Trier par--</option>
-                    <option value="alphabeticalOrder" style="text-align: center;">Alphabetical Order</option> 
-                    <option value="reverseAlphabeticalOrder" style="text-align: center;">Reverse Alphabetical Order</option>
-                    <option value="numberOfArtists" style="text-align: center;">Number of Artists</option>
+                    <option value="alphabeticalOrder" style="text-align: center;">A-Z</option> 
+                    <option value="reverseAlphabeticalOrder" style="text-align: center;">Z-A</option>
+                    <option value="numberOfArtists" style="text-align: center;">Par nombre de membres</option>
                 </select>
                 <button class="concertButton">
                     valider
