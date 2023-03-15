@@ -49,7 +49,6 @@ func Inisialistion() {
 	http.HandleFunc("/artistPage", artistPage)
 	http.HandleFunc("/searchName", searchName)
 	http.HandleFunc("/concert", concertPage)
-	http.HandleFunc("/aboutUs", aboutUsPage)
 	http.HandleFunc("/contactUs", contactUsPage)
 	http.HandleFunc("/changePage", ChangePage)
 	http.HandleFunc("/adminLog", AdminLog)
@@ -196,14 +195,6 @@ func concertPage(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, r)
 }
 
-func aboutUsPage(w http.ResponseWriter, r *http.Request) {
-	/*
-	* Redirecte to the about us page
-	 */
-	tmpl := template.Must(template.ParseFiles("./template/aboutUsPage.html"))
-	tmpl.Execute(w, r)
-}
-
 func contactUsPage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./template/contactUsPage.html"))
 	tmpl.Execute(w, r)
@@ -237,9 +228,7 @@ func DataToFunctionnalData(IdArstist int) groupietrackers.ArtistsToDisplay {
 	* the data of the artist for golang template because we can't use the struct of the json file
 	 */
 	//We find the id of the artist in the Cards.Array array
-	fmt.Println("IdArstist", IdArstist)
 	for index, value := range Cards.Array {
-		fmt.Println(value.Name, value.Id)
 		if value.Id == IdArstist+1 {
 			IdArstist = index
 			break

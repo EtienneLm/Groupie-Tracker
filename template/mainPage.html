@@ -15,21 +15,19 @@
         </datalist>
         <div class ="navbar">
             <a class="navHomeButton" href="http://localhost:8080/"><img src="http://localhost:8080/assets/img/ancienlogo.png" width="90%"/></a>
-            <div class="researchBar">
-                <form action="searchName" method="post">
+                <form action="searchName" method="post" class="searchName">
+                    <img class = "loupe" src="http://localhost:8080/assets/img/loupe-svgrepo-com.svg" alt="loupe" style="filter: brightness(0) invert(1);">
                     <input class="search" type="text" name="searchName" list="names" src="http://localhost:8080/assets/img/loupe.png"/>
                 </form>
-            </div>
             <form action="adminLog" method="post">
-                <button  style = "border: transparent; background-color: transparent;"> <img src="http://localhost:8080/assets/img/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px"> </button>
+                <button  style = "border: transparent; background-color: transparent; margin-right: 5vw;"> <img src="http://localhost:8080/assets/img/Parameters.png" alt="parameters button" class="Para" height="50px" width="50px" style="filter: brightness(0) invert(1);"> </button>
             </form>
         </div>
         
         <h1 class="title">Welcome on our web site</h1>
         <div class="buttonBar">
             <form action="concert" method="post"><button class="concertButton" type="submit">See concert</button></form>
-            <form action="aboutUs" method="post"><button class="aboutUsButton" type="submit">About us</button></form>
-            <form action="contactUs" method="post"><button class="contactButton" type="submit">Contact us</button></form>
+            <form action="contactUs" method="post"><button class="concertButton" type="submit">Contact us</button></form>
         </div>
         <div class="buttonBar" style="margin-top: 5vh; margin-bottom: 5vh;">
             <form action="NbrInPageChange" method="post" id="login-form">
@@ -38,14 +36,14 @@
                     <input type="text" class="inputText" name = "mail" id = "nbrOfCard" placeholder="Enter Number">
                 </div>
             </form>
-            <form action="sorting" method="post" class="sortHere" >
-                <select name="sorting" id="choose-sorting">
-                    <option value="alphabeticalOrder">--Choisissez une option--</option>
-                    <option value="alphabeticalOrder" >Alphabetical Order</option> 
-                    <option value="reverseAlphabeticalOrder" >Reverse Alphabetical Order</option>
-                    <option value="numberOfArtists" >Number of Artists</option>
+            <form action="sorting" method="post">
+                <select name="sorting" id="choose-sorting" class="choose-sorting">
+                    <option value="alphabeticalOrder" style="text-align: center;">--Trier par--</option>
+                    <option value="alphabeticalOrder" style="text-align: center;">Alphabetical Order</option> 
+                    <option value="reverseAlphabeticalOrder" style="text-align: center;">Reverse Alphabetical Order</option>
+                    <option value="numberOfArtists" style="text-align: center;">Number of Artists</option>
                 </select>
-                <button class="hiddenButton">
+                <button class="concertButton">
                     valider
                 </button>
             </form>
@@ -62,7 +60,7 @@
             </form>
             {{end}} 
         </div>
-           
+        <div class="forCenter">
         <div class="ButtonForChangePage">
             {{if .NotFirstPage}}
             <form action="changePage" method="post">
@@ -70,7 +68,7 @@
             </form> 
             {{end}}
             {{if .NotFirstPage}} 
-            {{if .NotLastPage}} <p style="font-size: 1.5vw ; margin-top: 0;">{{.IdPage}}</p>  {{end}}
+            {{if .NotLastPage}} <p class="Pagetext" >{{.IdPage}}</p>  {{end}}
             {{end}}
             {{if .NotLastPage}} 
             <form action="changePage" method="post">
@@ -78,5 +76,6 @@
             </form>
             {{end}} 
         </div>
+    </div>
     </body>
     </html>
