@@ -58,10 +58,10 @@ func Inisialistion() {
 	http.HandleFunc("/reloadAPI", ReloadAPI)
 	http.HandleFunc("/sorting", SortingList)
 
-	Port := "8080"                                          //We choose port 8080
-	fmt.Println("The serveur start on port " + Port + " 🔥") //We print this when the server is online
-	fmt.Println("http://localhost:8080/")
-	http.ListenAndServe(":"+Port, nil) //We start the server
+	// Port := "8080"                                          //We choose port 8080
+	// fmt.Println("The serveur start on port " + Port + " 🔥") //We print this when the server is online
+	fmt.Println("93.90.205.209")
+	// http.ListenAndServe(":"+Port, nil) //We start the server
 }
 
 func ReloadAPI(w http.ResponseWriter, r *http.Request) {
