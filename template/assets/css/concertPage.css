@@ -98,3 +98,7 @@ body {
     width: 50;
     height: 50;
 }
+
+.artistName > h1 {
+  color : red ;
+}
